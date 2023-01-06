@@ -5,10 +5,983 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    coin: 100,
+    floor: 1,
+    stage: 1,
+    currentCaracter: null,
+    playerBaseHealth: 8,
+    playerHealth: 8,
+    playerBaseEnergy: 3,
+    cardRemovalCount: 0,
+    playerPerks: [],
+    enemies: [
+        {
+            floor: 1,
+            enemyPictures: [
+                [
+                    require('@/assets/enemies/001/001/001.png'),
+                    require('@/assets/enemies/001/001/002.png'),
+                    require('@/assets/enemies/001/001/003.png'),
+                    require('@/assets/enemies/001/001/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/002/001.png'),
+                    require('@/assets/enemies/001/002/002.png'),
+                    require('@/assets/enemies/001/002/003.png'),
+                    require('@/assets/enemies/001/002/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/003/001.png'),
+                    require('@/assets/enemies/001/003/002.png'),
+                    require('@/assets/enemies/001/003/003.png'),
+                    require('@/assets/enemies/001/003/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/004/001.png'),
+                    require('@/assets/enemies/001/004/002.png'),
+                    require('@/assets/enemies/001/004/003.png'),
+                    require('@/assets/enemies/001/004/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/005/001.png'),
+                    require('@/assets/enemies/001/005/002.png'),
+                    require('@/assets/enemies/001/005/003.png'),
+                    require('@/assets/enemies/001/005/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/006/001.png'),
+                    require('@/assets/enemies/001/006/002.png'),
+                    require('@/assets/enemies/001/006/003.png'),
+                    require('@/assets/enemies/001/006/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/001/007/001.png'),
+                    require('@/assets/enemies/001/007/002.png'),
+                    require('@/assets/enemies/001/007/003.png'),
+                    require('@/assets/enemies/001/007/004.png'),
+                ],
+            ]
+        },
+        {
+            floor: 2,
+            enemyPictures: [
+                [
+                    require('@/assets/enemies/002/001/001.png'),
+                    require('@/assets/enemies/002/001/002.png'),
+                    require('@/assets/enemies/002/001/003.png'),
+                    require('@/assets/enemies/002/001/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/002/002/001.png'),
+                    require('@/assets/enemies/002/002/002.png'),
+                    require('@/assets/enemies/002/002/003.png'),
+                    require('@/assets/enemies/002/002/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/002/003/001.png'),
+                    require('@/assets/enemies/002/003/002.png'),
+                    require('@/assets/enemies/002/003/003.png'),
+                    require('@/assets/enemies/002/003/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/002/004/001.png'),
+                    require('@/assets/enemies/002/004/002.png'),
+                    require('@/assets/enemies/002/004/003.png'),
+                    require('@/assets/enemies/002/004/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/002/005/001.png'),
+                    require('@/assets/enemies/002/005/002.png'),
+                    require('@/assets/enemies/002/005/003.png'),
+                    require('@/assets/enemies/002/005/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/002/006/001.png'),
+                    require('@/assets/enemies/002/006/002.png'),
+                    require('@/assets/enemies/002/006/003.png'),
+                    require('@/assets/enemies/002/006/004.png'),
+                ],
+            ]
+        },
+        {
+            floor: 3,
+            enemyPictures: [
+                [
+                    require('@/assets/enemies/003/001/001.png'),
+                    require('@/assets/enemies/003/001/002.png'),
+                    require('@/assets/enemies/003/001/003.png'),
+                    require('@/assets/enemies/003/001/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/002/001.png'),
+                    require('@/assets/enemies/003/002/002.png'),
+                    require('@/assets/enemies/003/002/003.png'),
+                    require('@/assets/enemies/003/002/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/003/001.png'),
+                    require('@/assets/enemies/003/003/002.png'),
+                    require('@/assets/enemies/003/003/003.png'),
+                    require('@/assets/enemies/003/003/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/004/001.png'),
+                    require('@/assets/enemies/003/004/002.png'),
+                    require('@/assets/enemies/003/004/003.png'),
+                    require('@/assets/enemies/003/004/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/005/001.png'),
+                    require('@/assets/enemies/003/005/002.png'),
+                    require('@/assets/enemies/003/005/003.png'),
+                    require('@/assets/enemies/003/005/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/006/001.png'),
+                    require('@/assets/enemies/003/006/002.png'),
+                    require('@/assets/enemies/003/006/003.png'),
+                    require('@/assets/enemies/003/006/004.png'),
+                ],
+                [
+                    require('@/assets/enemies/003/007/001.png'),
+                    require('@/assets/enemies/003/007/002.png'),
+                    require('@/assets/enemies/003/007/003.png'),
+                    require('@/assets/enemies/003/007/004.png'),
+                ],
+            ]
+        },
+    ],
+    bosses: [
+        {
+            floor: 1,
+            enemyPictures: [
+                [
+                    require('@/assets/bosses/001/001/001.png'),
+                    require('@/assets/bosses/001/001/002.png'),
+                    require('@/assets/bosses/001/001/003.png'),
+                    require('@/assets/bosses/001/001/004.png'),
+                ]
+            ]
+        },
+        {
+            floor: 2,
+            enemyPictures: [
+                [
+                    require('@/assets/bosses/002/001/001.png'),
+                    require('@/assets/bosses/002/001/002.png'),
+                    require('@/assets/bosses/002/001/003.png'),
+                    require('@/assets/bosses/002/001/004.png'),
+                ]
+            ]
+        },
+        {
+            floor: 3,
+            enemyPictures: [
+                [
+                    require('@/assets/bosses/003/001/001.png'),
+                    require('@/assets/bosses/003/001/002.png'),
+                    require('@/assets/bosses/003/001/003.png'),
+                    require('@/assets/bosses/003/001/004.png'),
+                ]
+            ]
+        },
+        {
+            floor: 4,
+            enemyPictures: [
+                [
+                    require('@/assets/bosses/004/001/001.png'),
+                    require('@/assets/bosses/004/001/002.png'),
+                    require('@/assets/bosses/004/001/003.png'),
+                    require('@/assets/bosses/004/001/004.png'),
+                ]
+            ]
+        },
+    ],
+    finalBosses: [
+        {
+            enemyPictures: [
+                    require('@/assets/bosses/001/002/001.png'),
+                    require('@/assets/bosses/001/002/002.png'),
+                    require('@/assets/bosses/001/002/003.png'),
+                    require('@/assets/bosses/001/002/004.png'),
+            ]
+        },
+        {
+            enemyPictures: [
+                    require('@/assets/bosses/002/002/001.png'),
+                    require('@/assets/bosses/002/002/002.png'),
+                    require('@/assets/bosses/002/002/003.png'),
+                    require('@/assets/bosses/002/002/004.png'),
+            ]
+        },
+        {
+            enemyPictures: [
+                    require('@/assets/bosses/003/002/001.png'),
+                    require('@/assets/bosses/003/002/002.png'),
+                    require('@/assets/bosses/003/002/003.png'),
+                    require('@/assets/bosses/003/002/004.png'),
+            ]
+        },
+        {
+            enemyPictures: [
+                    require('@/assets/bosses/004/002/001.png'),
+                    require('@/assets/bosses/004/002/002.png'),
+                    require('@/assets/bosses/004/002/003.png'),
+                    require('@/assets/bosses/004/002/004.png'),
+            ]
+        },
+    ],
+    perks: [
+        {
+            name: 'Bubble Butt',
+            image: require('@/assets/icons/perks/bubbleButt.png'),
+            effect: 'Remove one enemy power every turn after all other modifiers.',
+            value: 400
+        },
+        {
+            name: 'Implants',
+            image: require('@/assets/icons/perks/implants.png'),
+            effect: 'Permanently increase max energy by 2',
+            value: 400
+        },
+        {
+            name: 'Strapon',
+            image: require('@/assets/icons/perks/strapon.png'),
+            effect: 'Add one power every turn after all other modifiers.',
+            value: 400
+        },
+        {
+            name: 'Oral Fixation',
+            image: require('@/assets/icons/perks/oralFixation.png'),
+            effect: 'Unused energy is added to energy next turn',
+            value: 400
+        },
+        {
+            name: 'Cash',
+            image: require('@/assets/icons/perks/cash.png'),
+            effect: 'Enemies drop 50% more coin',
+            value: 400
+        },
+        {
+            name: 'Thick Thighs',
+            image: require('@/assets/icons/perks/thickThighs.png'),
+            effect: 'Permanently increase max life by 2',
+            value: 400
+        },
+    ],
+    cards: [
+        {
+            name: "flash",
+            animatedImage: require("@/assets/cards/animated/flash.webp"),
+            image: require("@/assets/cards/static/flash.png"),
+            power: 2,
+            cost: 1,
+            value: 10,
+            description: ''
+        },
+        {
+            name: "moon",
+            animatedImage: require("@/assets/cards/animated/moon.webp"),
+            image: require("@/assets/cards/static/moon.png"),
+            power: 3,
+            cost: 2,
+            value: 10,
+            description: ''
+        },
+        {
+            name: "commando",
+            animatedImage: require("@/assets/cards/animated/commando.webp"),
+            image: require("@/assets/cards/static/commando.png"),
+            power: 0,
+            cost: 3,
+            value: 100,
+            description: "Reduce opponent's card(s) power to zero this turn and next"
+        },
+        {
+            name: "enticing",
+            animatedImage: require("@/assets/cards/animated/enticing.webp"),
+            image: require("@/assets/cards/static/enticing.png"),
+            power: 1,
+            cost: 3,
+            value: 15,
+            description: "Draw one additional card next turn"
+        },
+        {
+            name: "girlfriends",
+            animatedImage: require("@/assets/cards/animated/girlfriends.webp"),
+            image: require("@/assets/cards/static/girlfriends.png"),
+            power: "?",
+            cost: 4,
+            value: 30,
+            description: "Power equals double the last card played"
+        },
+        {
+            name: "reflecting",
+            animatedImage: require("@/assets/cards/animated/reflecting.webp"),
+            image: require("@/assets/cards/static/reflecting.png"),
+            power: 0,
+            cost: 3,
+            value: 30,
+            description: "Double the power of the next card you play"
+        },
+        {
+            name: "abundance",
+            animatedImage: require("@/assets/cards/animated/abundance.webp"),
+            image: require("@/assets/cards/static/abundance.png"),
+            power: 0,
+            cost: 2,
+            value: 60,
+            description: "Power is equal to the number of cards played by the user this match"
+        },
+        {
+            name: "bubbleButts",
+            animatedImage: require("@/assets/cards/animated/bubbleButts.webp"),
+            image: require("@/assets/cards/static/bubbleButts.png"),
+            power: 1,
+            cost: 2,
+            value: 100,
+            description: "Reduce enemy's card(s) power by two this turn and next"
+        },
+        {
+            name: "ready",
+            animatedImage: require("@/assets/cards/animated/ready.webp"),
+            image: require("@/assets/cards/static/ready.png"),
+            power: 5,
+            cost: 1,
+            value: 40,
+            description: "Increase enemy's card(s) power by 2 next turn"
+        },
+        {
+            name: "seducing",
+            animatedImage: require("@/assets/cards/animated/seducing.webp"),
+            image: require("@/assets/cards/static/seducing.png"),
+            power: 0,
+            cost: 3,
+            value: 150,
+            description: "Draw one additional card for the remainder of the match"
+        },
+        {
+            name: "groupUse",
+            animatedImage: require("@/assets/cards/animated/groupUse.webp"),
+            image: require("@/assets/cards/static/groupUse.png"),
+            power: 0,
+            cost: 4,
+            value: 150,
+            description: "Power is equal to the number of cards played by the user this match times 2"
+        },
+        {
+            name: "zen",
+            animatedImage: require("@/assets/cards/animated/zen.webp"),
+            image: require("@/assets/cards/static/zen.png"),
+            power: 0,
+            cost: 3,
+            value: 150,
+            description: "Gain 1 additional energy per turn for the rest of the match"
+        },
+        {
+            name: "blowjob",
+            animatedImage: require("@/assets/cards/animated/blowjob.webp"),
+            image: require("@/assets/cards/static/blowjob.png"),
+            power: 3,
+            cost: 1,
+            value: 40,
+            description: ""
+        },
+        {
+            name: "girldick",
+            animatedImage: require("@/assets/cards/animated/girldick.webp"),
+            image: require("@/assets/cards/static/girldick.png"),
+            power: 6,
+            cost: 3,
+            value: 40,
+            description: ""
+        },
+        {
+            name: "creampie",
+            animatedImage: require("@/assets/cards/animated/creampie.webp"),
+            image: require("@/assets/cards/static/creampie.png"),
+            power: 1,
+            cost: 3,
+            value: 35,
+            description: "If you have one HP left, increase this card's power by 10"
+        },
+        {
+            name: "cosplay",
+            animatedImage: require("@/assets/cards/animated/cosplay.webp"),
+            image: require("@/assets/cards/static/cosplay.png"),
+            power: 0,
+            cost: 3,
+            value: 60,
+            description: "Power equals the power of your last played card plus 2"
+        },
+        {
+            name: "freeUse",
+            animatedImage: require("@/assets/cards/animated/freeUse.webp"),
+            image: require("@/assets/cards/static/freeUse.png"),
+            power: 6,
+            cost: 1,
+            value: 40,
+            description: "Decrease the power of your next two cards by 2"
+        },
+        {
+            name: "restrained",
+            animatedImage: require("@/assets/cards/animated/restrained.webp"),
+            image: require("@/assets/cards/static/restrained.png"),
+            power: 10,
+            cost: 2,
+            value: 40,
+            description: "Decrease the power of the next card you play to 0"
+        },
+        {
+            name: "caughtMasturbating",
+            animatedImage: require("@/assets/cards/animated/caughtMasturbating.webp"),
+            image: require("@/assets/cards/static/caughtMasturbating.png"),
+            power: 10,
+            cost: 1,
+            value: 100,
+            description: "Discard one card at random"
+        },
+        {
+            name: "thong",
+            animatedImage: require("@/assets/cards/animated/thong.webp"),
+            image: require("@/assets/cards/static/thong.png"),
+            power: 0,
+            cost: 2,
+            value: 150,
+            description: "The first card you play next turn costs 0"
+        },
+        {
+            name: "bimbofication",
+            animatedImage: require("@/assets/cards/animated/bimbofication.webp"),
+            image: require("@/assets/cards/static/bimbofication.png"),
+            power: 0,
+            cost: 5,
+            value: 100,
+            description: "Permanently gain 1 HP and take no damage this turn"
+        },
+        {
+            name: "strapon",
+            animatedImage: require("@/assets/cards/animated/strapon.webp"),
+            image: require("@/assets/cards/static/strapon.png"),
+            power: 3,
+            cost: 3,
+            value: 100,
+            description: "The side that loses this round takes 2 damage"
+        },
+    ],
+    penaltyCards: [
+        {
+            name: "outfitOops",
+            animatedImage: require("@/assets/cards/animated/outfitOops.webp"),
+            image: require("@/assets/cards/static/outfitOops.png"),
+            power: 0,
+            cost: 3,
+            description: ""
+        },
+    ],
+    deck: [],
+    enemyDeck: [],
+    completedRuns: 0,
+    defaultDecks: [
+        {
+            archetype: "Bimbo",
+            deck: [
+                {
+                    name: 'flash',
+                    quantity: 3
+                },
+                {
+                    name: 'moon',
+                    quantity: 3
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+            ]
+        },
+    ],
+    enemyDecks: [
+        {
+            floor: 1,
+            deck: [
+                {
+                    name: 'flash',
+                    quantity: 3
+                },
+                {
+                    name: 'moon',
+                    quantity: 3
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+            ]
+        },
+        {
+            floor: 2,
+            deck: [
+                {
+                    name: 'flash',
+                    quantity: 2
+                },
+                {
+                    name: 'moon',
+                    quantity: 1
+                },
+                {
+                    name: 'blowjob',
+                    quantity: 2
+                },
+                {
+                    name: 'bubbleButts',
+                    quantity: 1
+                },
+                {
+                    name: 'freeUse',
+                    quantity: 1
+                },
+            ]
+        },
+        {
+            floor: 3,
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 4
+                },
+                {
+                    name: 'bubbleButts',
+                    quantity: 2
+                },
+                {
+                    name: 'freeUse',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 3
+                },
+                {
+                    name: 'cosplay',
+                    quantity: 3
+                },
+                {
+                    name: 'commando',
+                    quantity: 1
+                },
+            ]
+        },
+    ],
+    bossDecks: [
+        {
+            floor: 1,
+            deck: [
+                {
+                    name: 'flash',
+                    quantity: 1
+                },
+                {
+                    name: 'blowjob',
+                    quantity: 1
+                },
+                {
+                    name: 'restrained',
+                    quantity: 2
+                },
+                {
+                    name: 'moon',
+                    quantity: 1
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+            ]
+        },
+        {
+            floor: 2,
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 2
+                },
+                {
+                    name: 'restrained',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 1
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'cosplay',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+            ]
+        },
+        {
+            floor: 3,
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 2
+                },
+                {
+                    name: 'restrained',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 1
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'cosplay',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+            ]
+        },
+        {
+            floor: 4,
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 2
+                },
+                {
+                    name: 'restrained',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 1
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'cosplay',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+            ]
+        },
+    ],
+    finalBossDecks: [
+        {
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 3
+                },
+                {
+                    name: 'restrained',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 2
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+                {
+                    name: 'caughtMasturbating',
+                    quantity: 2
+                },
+                {
+                    name: 'abundance',
+                    quanity: 2
+                }
+            ],
+        },
+        {
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 3
+                },
+                {
+                    name: 'restrained',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 2
+                },
+                {
+                    name: 'reflecting',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+                {
+                    name: 'caughtMasturbating',
+                    quantity: 2
+                },
+                {
+                    name: 'groupUse',
+                    quanity: 2
+                }
+            ],
+        },
+        {
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 3
+                },
+                {
+                    name: 'bubbleButts',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 2
+                },
+                {
+                    name: 'abundance',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'seducing',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+                {
+                    name: 'caughtMasturbating',
+                    quantity: 2
+                },
+                {
+                    name: 'commando',
+                    quanity: 2
+                }
+            ],
+        },
+        {
+            deck: [
+                {
+                    name: 'blowjob',
+                    quantity: 3
+                },
+                {
+                    name: 'bubbleButts',
+                    quantity: 1
+                },
+                {
+                    name: 'strapon',
+                    quantity: 2
+                },
+                {
+                    name: 'groupUse',
+                    quantity: 1
+                },
+                {
+                    name: 'zen',
+                    quantity: 1
+                },
+                {
+                    name: 'seducing',
+                    quantity: 1
+                },
+                {
+                    name: 'girldick',
+                    quantity: 2
+                },
+                {
+                    name: 'caughtMasturbating',
+                    quantity: 2
+                },
+                {
+                    name: 'commando',
+                    quanity: 2
+                }
+            ],
+        }
+    ]
   },
   mutations: {
+    selectCharacter(state, payload){
+        state.deck = payload.constructedDeck;
+        // state.currentCaracter = JSON.parse(JSON.stringify(payload.character));
+    },
+    buildEnemyDeck(state, payload){
+        state.enemyDeck = payload.constructedDeck;
+        // state.currentCaracter = JSON.parse(JSON.stringify(payload.character));
+    },
+    ascendStage(state) {
+        state.stage += 1;
+    },
+    gainMoney(state, payload){
+        state.coin += payload
+    },
+    buyCard(state, payload) {
+        state.coin -= payload.value;
+        state.deck.push(payload);
+    },
+    addCard(state, payload) {
+        state.deck.push(payload)
+    },
+    ascendFloor(state){
+        state.stage = 1;
+        state.floor += 1;
+    },
+    buyPerk(state, payload) {
+        state.coin -= payload.value;
+        state.playerPerks.push(payload)
+    },
+    removeCard(state, payload) {
+        state.coin -= payload.cost;
+        state.deck = state.deck.filter(card => card.id != payload.id)
+        state.cardRemovalCount += 1;
+    },
+    gameOver(state, payload){
+        state.coin = payload.coin
+        state.floor = payload.floor
+        state.stage = payload.stage
+        state.currentCaracter = payload.currentCaracter
+        state.playerBaseHealth = payload.playerBaseHealth
+        state.playerHealth = payload.playerHealth
+        state.playerBaseEnergy = payload.playerBaseEnergy
+        state.cardRemovalCount = payload.cardRemovalCount
+        state.playerPerks = payload.playerPerks
+        state.deck = payload.deck
+    }
   },
   actions: {
+    selectCharacter: function(context, payload){
+        let deckTemplate = payload.deckTemplate
+        let cardPool = payload.cardPool
+        let constructedDeck = new Array
+        deckTemplate.forEach(card => {
+            for (let i = 0; i < card.quantity; i++) {
+                let animatedPercent = Math.floor(Math.random() * 100) + 1;
+                let cardTemplate = JSON.parse(JSON.stringify(cardPool.find(template => template.name == card.name)));
+                let id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+                cardTemplate.id = id;
+                cardTemplate.animated = animatedPercent == 1 ? true : false;
+                constructedDeck.push(cardTemplate)
+            }
+        }),
+        payload.constructedDeck = constructedDeck;
+        console.log('Player deck:')
+        console.log(payload.constructedDeck)
+        context.commit('selectCharacter', payload)
+    },
+    buildEnemyDeck: function(context, payload){
+        let deckTemplate = payload.deckTemplate
+        let cardPool = payload.cardPool
+        let constructedDeck = new Array
+        deckTemplate.forEach(card => {
+            for (let i = 0; i < card.quantity; i++) {
+                let animatedPercent = Math.floor(Math.random() * 100) + 1;
+                let cardTemplate = JSON.parse(JSON.stringify(cardPool.find(template => template.name == card.name)));
+                let id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+                cardTemplate.id = id;
+                cardTemplate.animated = animatedPercent == 1 ? true : false;
+                constructedDeck.push(cardTemplate)
+            }
+        }),
+        payload.constructedDeck = constructedDeck;
+        console.log('Enemy deck:')
+        console.log(payload.constructedDeck)
+        context.commit('buildEnemyDeck', payload)
+    },
+    ascendStage: function(context) {
+        context.commit('ascendStage');
+    },
+    gainMoney: function(context, payload){
+        context.commit('gainMoney', payload)
+    },
+    buyCard: function(context, payload){
+        context.commit('buyCard', payload)
+    },
+    addCard: function(context, payload){
+        context.commit('addCard', payload)
+    },
+    ascendFloor: function(context){
+        context.commit('ascendFloor');
+    },
+    buyPerk: function(context, payload) {
+        context.commit('buyPerk', payload)
+    },
+    removeCard: function(context, payload) {
+        context.commit('removeCard', payload)
+    },
+    gameOver: function(context){
+        let rebuiltState = {
+            coin: 100,
+            floor: 1,
+            stage: 1,
+            currentCaracter: null,
+            playerBaseHealth: 8,
+            playerHealth: 8,
+            playerBaseEnergy: 3,
+            cardRemovalCount: 0,
+            playerPerks: [],
+            deck: []
+        }
+        context.commit('gameOver', rebuiltState)
+    }
   },
   modules: {
   }
