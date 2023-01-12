@@ -11,7 +11,7 @@
             <v-col cols="6">
                 <v-row>
                     <v-col cols="3" v-for="card, i in cards" :key="i" class="text-center">
-                        <v-img :src="purchasedCards.includes(card.id) ? require('@/assets/cards/blankBack.png') : (card.animated ? card.animatedImage : card.image)" contain @mouseover="purchasedCards.includes(card.id) ? '' : (activeItem = card.animated? card.animatedImage : card.image)" @mouseleave="activeItem = require(`@/assets/merchant/merchant.png`)" @click="purchasedCards.includes(card.id) ? '' : buyCard(card)">
+                        <v-img :src="purchasedCards.includes(card.id) ? require('@/assets/cards/blankBack.png') : card[card.activeImage]" contain @mouseover="purchasedCards.includes(card.id) ? '' : (activeItem = card[card.activeImage])" @mouseleave="activeItem = require(`@/assets/merchant/merchant.png`)" @click="purchasedCards.includes(card.id) ? '' : buyCard(card)">
                             <div
 								v-if="!purchasedCards.includes(card.id) && card.description.length > 0"
 								class="d-flex v-card--reveal"
@@ -54,7 +54,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="3" class="text-center" v-for="card in deck" :key="card.id" @click="cardToRemove = card.id">
-                            <v-img :src="card.image" contain class="d-flex align-center">
+                            <v-img :src="card[card.activeImage]" contain class="d-flex align-center">
                                 <v-btn v-if="cardToRemove == card.id" color="red" @click="removeCard(card)">Remove card</v-btn>
                             </v-img>
                         </v-col>
@@ -118,11 +118,8 @@
                 var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                 var valueChange = Math.floor(Math.random() * 10) + 1;
                 card.value += (valueChange * plusOrMinus);
-                card.animated = false
                 card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
             })
-            returnCards[5].animated = true;
-            returnCards[5].value += 50;
             return returnCards
         },
         coins: function(){

@@ -528,8 +528,6 @@
         var prizeCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,3)))
         prizeCards.forEach(card => {
           card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
-          let animatedPercent = Math.floor(Math.random() * 100) + 1;
-          card.animated = animatedPercent == 1 ? true : false;
         });
         return prizeCards
       },

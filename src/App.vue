@@ -2,11 +2,11 @@
   <v-app>
       <v-card style="background-color: #2c2c2c" height="6vh">
         <v-row>
-          <v-col cols="12" class="text-center" v-if="activeComponent == 'home'">
+          <v-col cols="12" class="text-center" v-if="activeComponent == 'home' || activeComponent == 'mainHub' || activeComponent == 'store' || activeComponent == 'cardSettings'">
             <h1>TF DECK BUILDER</h1>
           </v-col>
         </v-row>
-        <v-row v-if="activeComponent != 'home'">
+        <v-row v-if="activeComponent != 'home' && activeComponent != 'mainHub' && activeComponent != 'store' && activeComponent != 'cardSettings'">
           <v-col cols="1" v-for="(perk, index) in perks" :key="index">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
@@ -41,6 +41,9 @@
     <midGameStories v-if="activeComponent == 'midGameStories'" v-on:changeComponent="changeComponent"></midGameStories>
     <gameOver v-if="activeComponent == 'gameOver'" v-on:changeComponent="changeComponent"></gameOver>
     <endGameStory v-if="activeComponent == 'endGameStory'" v-on:changeComponent="changeComponent"></endGameStory>
+    <mainHub v-if="activeComponent == 'mainHub'" v-on:changeComponent="changeComponent"></mainHub>
+    <store v-if="activeComponent == 'store'" v-on:changeComponent="changeComponent"></store>
+    <cardSettings v-if="activeComponent == 'cardSettings'" v-on:changeComponent="changeComponent"></cardSettings>
   </v-app>
 </template>
 
@@ -57,6 +60,9 @@
   import midGameStories from './components/midGameStories.vue'
   import gameOver from './components/gameOver.vue'
   import endGameStory from './components/endGameStory.vue'
+  import mainHub from './components/mainHub.vue'
+  import store from './components/store.vue'
+  import cardSettings from './components/cardSettings.vue'
   export default {
     components: {
     story,
@@ -70,6 +76,9 @@
     midGameStories,
     gameOver,
     endGameStory,
+    mainHub,
+    store,
+    cardSettings,
 },
     data: () => ({
       activeComponent: "home"

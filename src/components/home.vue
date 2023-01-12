@@ -21,7 +21,7 @@
       }),
       methods: {
         changeComponent() {
-            this.$emit('changeComponent', 'story')
+            this.$emit('changeComponent', 'mainHub')
         }
       }
     }

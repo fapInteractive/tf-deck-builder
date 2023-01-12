@@ -11,7 +11,7 @@
             <v-col cols="12">
                 <v-row class="justify-space-around" v-if="selectedCards.length < 2">
                     <v-col cols="3" v-for="card, i in cards" :key="i" class="text-center">
-                        <v-img :src="selectedCards.includes(card.id) ? require('@/assets/cards/blankBack.png') : (card.animated ? card.animatedImage : card.image)" contain @mouseover="selectedCards.includes(card.id) ? '' : (activeItem = card.animated? card.animatedImage : card.image)" @mouseleave="activeItem = require(`@/assets/merchant/merchant.png`)" @click="selectedCards.includes(card.id) ? '' : addCard(card)">
+                        <v-img :src="selectedCards.includes(card.id) ? require('@/assets/cards/blankBack.png') : card[card.activeImage]" contain @mouseover="selectedCards.includes(card.id) ? '' : (activeItem = card[card.activeImage])" @mouseleave="activeItem = require(`@/assets/merchant/merchant.png`)" @click="selectedCards.includes(card.id) ? '' : addCard(card)">
                             <div
                                 v-if="card.description.length > 0"
                                 class="d-flex v-card--reveal"
@@ -24,7 +24,7 @@
                 </v-row>
                 <v-row class="justify-space-around" v-if="selectedCards.length == 2">
                     <v-col cols="3" class="text-center">
-                        <v-img :src="penaltyCard.animated ? penaltyCard.animatedImage : penaltyCard.image" contain></v-img>
+                        <v-img :src="penaltyCard[penaltyCard.activeImage]" contain></v-img>
                     </v-col>
                 </v-row>
             </v-col>
@@ -54,8 +54,6 @@
             this.selectedCards.push(card.id);
             if(this.selectedCards.length == 2){
                 let penaltyCard = this.penaltyCards[Math.floor(Math.random()*this.penaltyCards.length)]
-                let animatedPercent = Math.floor(Math.random() * 100) + 1;
-                penaltyCard.animated = animatedPercent == 1 ? true : false;
                 penaltyCard.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
                 this.penaltyCard = penaltyCard;
                 this.$store.dispatch('addCard', penaltyCard)
@@ -69,10 +67,8 @@
         cards: function() {
             var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,3)))
             returnCards.forEach(card => {
-                card.animated = false
                 card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
             })
-            returnCards[2].animated = true;
             return returnCards
         },
         penaltyCards: function() {

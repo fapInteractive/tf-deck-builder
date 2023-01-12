@@ -27,7 +27,7 @@
 						<p>Select one of the following cards to add to your deck</p>
 					</v-col>
 					<v-col cols="3" v-for="card in prizeCards" :key="card.id">
-						<v-img :src="prizeCardSelected ? (selectedPrizeCard == card.id ? (card.animated ? card.animatedImage : card.image) : require('@/assets/cards/blankBack.png')) : (card.animated ? card.animatedImage : card.image)" contain @click="prizeCardSelected ? '' : addCard(card)">
+						<v-img :src="prizeCardSelected ? (selectedPrizeCard == card.id ? (card[card.activeImage]) : require('@/assets/cards/blankBack.png')) : (card[card.activeImage])" contain @click="prizeCardSelected ? '' : addCard(card)">
 							<div
 								v-if="card.description.length > 0"
 								class="d-flex v-card--reveal"
@@ -70,7 +70,7 @@
 					<v-col cols="6" :class="roundWinner == 'player' ? 'player-cards-victory' : roundWinner == 'enemy' ? 'player-cards-defeat' : 'player-cards'">
 						<v-row class="justify-end" v-if="playerPlayedCards.length != 0">
 							<v-col cols="4" v-for="(card, index) in playerPlayedCardsDisplay" :key="index">
-								<v-img :src="card.animated ? card.animatedImage : card.image" contain>
+								<v-img :src="card[card.activeImage]" contain>
 									<div
 										v-if="card && card.description.length > 0"
 										class="d-flex v-card--reveal"
@@ -90,7 +90,7 @@
 					<v-col cols="6" :class="roundWinner == 'enemy' ? 'enemy-cards-victory' : roundWinner == 'player' ? 'enemy-cards-defeat' : 'enemy-cards'">
 						<v-row class="justify-start" v-if="enemyPlayedCards.length != 0">
 							<v-col cols="4" v-for="(card, index) in enemyPlayedCards" :key="index">
-								<v-img :src="card.image" contain>
+								<v-img :src="card[card.activeImage]" contain>
 									<div
 										v-if="card && card.description.length > 0"
 										class="d-flex v-card--reveal"
@@ -127,7 +127,7 @@
 				</v-row>
 				<v-row class="justify-space-around pt-5">
 					<div class="game-card" v-for="i in 6" :key="i">
-						<v-img :src="playerHand[i-1] ? (playerHand[i - 1].animated ? playerHand[i - 1].animatedImage: playerHand[i - 1].image) : require('@/assets/cards/blankBack.png')" @click="playerHand[i-1] ? playCard(playerHand[i-1], i-1) : ''" contain>
+						<v-img :src="playerHand[i-1] ? playerHand[i-1][playerHand[i-1].activeImage] : require('@/assets/cards/blankBack.png')" @click="playerHand[i-1] ? playCard(playerHand[i-1], i-1) : ''" contain>
 							<div
 								v-if="playerHand[i-1] && playerHand[i-1].description.length > 0"
 								class="d-flex v-card--reveal"
@@ -361,6 +361,7 @@ export default {
 			this.checkPlayerCardEffects(playerPlayedCardNames);
 			this.checkEnemyCardEffects(enemyPlayedCardNames);
 			this.playerPower += this.playerPerks.filter(perk => perk.name == "Strapon").length;
+			this.enemyPower -= this.playerPerks.filter(perk => perk.name == "Bubble Butt").length;
 			if (this.playerPower > this.enemyPower) {
         this.roundWinner = 'player';
 				if (this.straponActive) {
@@ -709,8 +710,6 @@ export default {
       var prizeCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,3)))
       prizeCards.forEach(card => {
         card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
-        let animatedPercent = Math.floor(Math.random() * 100) + 1;
-        card.animated = animatedPercent <= 25 ? true : false;
       });
       return prizeCards
     },
@@ -774,7 +773,7 @@ export default {
     } else {
 		this.enemyImages = this.$store.state.finalBosses[this.$store.state.floor]
 	}
-    this.playerEnergy = this.$store.state.playerBaseEnergy + (this.playerPerks.map(perk => perk.name).includes('Implants') ? 2 : 0);
+    this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
     this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
 	this.enemyBaseHealth = 4 + (this.$store.state.floor - 1)
 	this.enemyHealth = 4 + (this.$store.state.floor - 1)

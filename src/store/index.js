@@ -14,6 +14,9 @@ export default new Vuex.Store({
     playerBaseEnergy: 3,
     cardRemovalCount: 0,
     playerPerks: [],
+    upgradePoints: 0,
+    difficulty: 0,
+    maxDifficulty: 0,
     enemies: [
         {
             floor: 1,
@@ -272,8 +275,12 @@ export default new Vuex.Store({
     cards: [
         {
             name: "flash",
-            animatedImage: require("@/assets/cards/animated/flash.webp"),
-            image: require("@/assets/cards/static/flash.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/flash.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/flash.png"),
+            static1: require("@/assets/cards/static/varient1/flash.png"),
             power: 2,
             cost: 1,
             value: 10,
@@ -281,8 +288,12 @@ export default new Vuex.Store({
         },
         {
             name: "moon",
-            animatedImage: require("@/assets/cards/animated/moon.webp"),
-            image: require("@/assets/cards/static/moon.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/moon.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/moon.png"),
+            static1: require("@/assets/cards/static/varient1/moon.png"),
             power: 3,
             cost: 2,
             value: 10,
@@ -290,8 +301,12 @@ export default new Vuex.Store({
         },
         {
             name: "commando",
-            animatedImage: require("@/assets/cards/animated/commando.webp"),
-            image: require("@/assets/cards/static/commando.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/commando.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/commando.png"),
+            static1: require("@/assets/cards/static/varient1/commando.png"),
             power: 0,
             cost: 3,
             value: 100,
@@ -299,8 +314,12 @@ export default new Vuex.Store({
         },
         {
             name: "enticing",
-            animatedImage: require("@/assets/cards/animated/enticing.webp"),
-            image: require("@/assets/cards/static/enticing.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/enticing.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/enticing.png"),
+            static1: require("@/assets/cards/static/varient1/enticing.png"),
             power: 1,
             cost: 3,
             value: 15,
@@ -308,8 +327,12 @@ export default new Vuex.Store({
         },
         {
             name: "girlfriends",
-            animatedImage: require("@/assets/cards/animated/girlfriends.webp"),
-            image: require("@/assets/cards/static/girlfriends.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/girlfriends.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/girlfriends.png"),
+            static1: require("@/assets/cards/static/varient1/girlfriends.png"),
             power: "?",
             cost: 4,
             value: 30,
@@ -317,8 +340,12 @@ export default new Vuex.Store({
         },
         {
             name: "reflecting",
-            animatedImage: require("@/assets/cards/animated/reflecting.webp"),
-            image: require("@/assets/cards/static/reflecting.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/reflecting.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/reflecting.png"),
+            static1: require("@/assets/cards/static/varient1/reflecting.png"),
             power: 0,
             cost: 3,
             value: 30,
@@ -326,8 +353,12 @@ export default new Vuex.Store({
         },
         {
             name: "abundance",
-            animatedImage: require("@/assets/cards/animated/abundance.webp"),
-            image: require("@/assets/cards/static/abundance.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/abundance.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/abundance.png"),
+            static1: require("@/assets/cards/static/varient1/abundance.png"),
             power: 0,
             cost: 2,
             value: 60,
@@ -335,8 +366,12 @@ export default new Vuex.Store({
         },
         {
             name: "bubbleButts",
-            animatedImage: require("@/assets/cards/animated/bubbleButts.webp"),
-            image: require("@/assets/cards/static/bubbleButts.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/bubbleButts.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/bubbleButts.png"),
+            static1: require("@/assets/cards/static/varient1/bubbleButts.png"),
             power: 1,
             cost: 2,
             value: 100,
@@ -344,8 +379,12 @@ export default new Vuex.Store({
         },
         {
             name: "ready",
-            animatedImage: require("@/assets/cards/animated/ready.webp"),
-            image: require("@/assets/cards/static/ready.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/ready.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/ready.png"),
+            static1: require("@/assets/cards/static/varient1/ready.png"),
             power: 5,
             cost: 1,
             value: 40,
@@ -353,8 +392,12 @@ export default new Vuex.Store({
         },
         {
             name: "seducing",
-            animatedImage: require("@/assets/cards/animated/seducing.webp"),
-            image: require("@/assets/cards/static/seducing.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/seducing.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/seducing.png"),
+            static1: require("@/assets/cards/static/varient1/seducing.png"),
             power: 0,
             cost: 3,
             value: 150,
@@ -362,8 +405,12 @@ export default new Vuex.Store({
         },
         {
             name: "groupUse",
-            animatedImage: require("@/assets/cards/animated/groupUse.webp"),
-            image: require("@/assets/cards/static/groupUse.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/groupUse.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/groupUse.png"),
+            static1: require("@/assets/cards/static/varient1/groupUse.png"),
             power: 0,
             cost: 4,
             value: 150,
@@ -371,8 +418,12 @@ export default new Vuex.Store({
         },
         {
             name: "zen",
-            animatedImage: require("@/assets/cards/animated/zen.webp"),
-            image: require("@/assets/cards/static/zen.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/zen.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/zen.png"),
+            static1: require("@/assets/cards/static/varient1/zen.png"),
             power: 0,
             cost: 3,
             value: 150,
@@ -380,8 +431,12 @@ export default new Vuex.Store({
         },
         {
             name: "blowjob",
-            animatedImage: require("@/assets/cards/animated/blowjob.webp"),
-            image: require("@/assets/cards/static/blowjob.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/blowjob.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/blowjob.png"),
+            static1: require("@/assets/cards/static/varient1/blowjob.png"),
             power: 3,
             cost: 1,
             value: 40,
@@ -389,8 +444,12 @@ export default new Vuex.Store({
         },
         {
             name: "girldick",
-            animatedImage: require("@/assets/cards/animated/girldick.webp"),
-            image: require("@/assets/cards/static/girldick.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/girldick.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/girldick.png"),
+            static1: require("@/assets/cards/static/varient1/girldick.png"),
             power: 6,
             cost: 3,
             value: 40,
@@ -398,8 +457,12 @@ export default new Vuex.Store({
         },
         {
             name: "creampie",
-            animatedImage: require("@/assets/cards/animated/creampie.webp"),
-            image: require("@/assets/cards/static/creampie.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/creampie.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/creampie.png"),
+            static1: require("@/assets/cards/static/varient1/creampie.png"),
             power: 1,
             cost: 3,
             value: 35,
@@ -407,8 +470,12 @@ export default new Vuex.Store({
         },
         {
             name: "cosplay",
-            animatedImage: require("@/assets/cards/animated/cosplay.webp"),
-            image: require("@/assets/cards/static/cosplay.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/cosplay.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/cosplay.png"),
+            static1: require("@/assets/cards/static/varient1/cosplay.png"),
             power: 0,
             cost: 3,
             value: 60,
@@ -416,8 +483,12 @@ export default new Vuex.Store({
         },
         {
             name: "freeUse",
-            animatedImage: require("@/assets/cards/animated/freeUse.webp"),
-            image: require("@/assets/cards/static/freeUse.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/freeUse.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/freeUse.png"),
+            static1: require("@/assets/cards/static/varient1/freeUse.png"),
             power: 6,
             cost: 1,
             value: 40,
@@ -425,8 +496,12 @@ export default new Vuex.Store({
         },
         {
             name: "restrained",
-            animatedImage: require("@/assets/cards/animated/restrained.webp"),
-            image: require("@/assets/cards/static/restrained.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/restrained.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/restrained.png"),
+            static1: require("@/assets/cards/static/varient1/restrained.png"),
             power: 10,
             cost: 2,
             value: 40,
@@ -434,8 +509,12 @@ export default new Vuex.Store({
         },
         {
             name: "caughtMasturbating",
-            animatedImage: require("@/assets/cards/animated/caughtMasturbating.webp"),
-            image: require("@/assets/cards/static/caughtMasturbating.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/caughtMasturbating.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/caughtMasturbating.png"),
+            static1: require("@/assets/cards/static/varient1/caughtMasturbating.png"),
             power: 10,
             cost: 1,
             value: 100,
@@ -443,8 +522,12 @@ export default new Vuex.Store({
         },
         {
             name: "thong",
-            animatedImage: require("@/assets/cards/animated/thong.webp"),
-            image: require("@/assets/cards/static/thong.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/thong.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/thong.png"),
+            static1: require("@/assets/cards/static/varient1/thong.png"),
             power: 0,
             cost: 2,
             value: 150,
@@ -452,8 +535,12 @@ export default new Vuex.Store({
         },
         {
             name: "bimbofication",
-            animatedImage: require("@/assets/cards/animated/bimbofication.webp"),
-            image: require("@/assets/cards/static/bimbofication.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/bimbofication.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/bimbofication.png"),
+            static1: require("@/assets/cards/static/varient1/bimbofication.png"),
             power: 0,
             cost: 5,
             value: 100,
@@ -461,8 +548,12 @@ export default new Vuex.Store({
         },
         {
             name: "strapon",
-            animatedImage: require("@/assets/cards/animated/strapon.webp"),
-            image: require("@/assets/cards/static/strapon.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/strapon.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/strapon.png"),
+            static1: require("@/assets/cards/static/varient1/strapon.png"),
             power: 3,
             cost: 3,
             value: 100,
@@ -472,8 +563,12 @@ export default new Vuex.Store({
     penaltyCards: [
         {
             name: "outfitOops",
-            animatedImage: require("@/assets/cards/animated/outfitOops.webp"),
-            image: require("@/assets/cards/static/outfitOops.png"),
+            unlocked: 'true',
+            activeImage: 'static1',
+            unlockedVarients: ["static1"],
+            animated1: require("@/assets/cards/animated/outfitOops.webp"),
+            rainbow1: require("@/assets/cards/rainbow/varient1/outfitOops.png"),
+            static1: require("@/assets/cards/static/varient1/outfitOops.png"),
             power: 0,
             cost: 3,
             description: ""
@@ -905,6 +1000,27 @@ export default new Vuex.Store({
         state.cardRemovalCount = payload.cardRemovalCount
         state.playerPerks = payload.playerPerks
         state.deck = payload.deck
+    },
+    changeVarient(state, payload){
+        state.cards.find(card => card.name == payload.name).activeImage = payload.varient
+    },
+    addFinalGameData(state, payload){
+        state.upgradePoints += payload.points;
+        payload.deck.forEach(card => {
+            let stateCard = state.cards.find(x => x.name == card.name)
+            if(!stateCard.unlockedVarients.includes(card.newVarient)){
+                state.cards.find(x => x.name == card.name).unlockedVarients.push(card.newVarient);
+            }
+        })
+        if(state.difficulty == state.maxDifficulty){
+            state.maxDifficulty += 1
+        }
+    },
+    decreaseDifficulty: function(state) {
+        state.difficulty -=1
+    },
+    increaseDifficulty: function(state) {
+        state.difficulty +=1
     }
   },
   actions: {
@@ -981,6 +1097,18 @@ export default new Vuex.Store({
             deck: []
         }
         context.commit('gameOver', rebuiltState)
+    },
+    changeVarient: function(context, payload){
+        context.commit('changeVarient', payload)
+    },
+    addFinalGameData: function(context, payload){
+        context.commit('addFinalGameData', payload)
+    },
+    decreaseDifficulty: function(context) {
+        context.commit('decreaseDifficulty')
+    },
+    increaseDifficulty: function(context) {
+        context.commit('increaseDifficulty')
     }
   },
   modules: {

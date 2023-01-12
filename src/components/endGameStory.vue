@@ -26,6 +26,14 @@
                         <h3>A bright flash of light suddenly blinds you.</h3>
                         <h3>As you regain your vision, you find youself in your bed, groggy from a dream you can't quite remember. You decide that you need a drink to clear your head, so you get dressed and ready to go out to your favorite bar.</h3>
                     </v-col>
+                    <v-col cols="12" class="text-center" v-if="step == 3">
+                        <h3>Congratulations on a successful run.</h3>
+                        <h3>You finished with a total of:</h3>
+                        <h3>{{ finalCoinTotal }} coins remaining</h3>
+                        <h3>{{ finalDeckSize }} cards in your deck</h3>
+                        <h3>{{ finalPerkTotal }} perks purchased</h3>
+                        <h3>You finish this run having gained {{ totalFinalPoints }} points to spend in the shop.</h3>
+                    </v-col>
                 </v-row>           
             </v-col>
             <v-col cols="3">
@@ -50,12 +58,41 @@
         }),
         methods: {
             nextStep(){
-                if(this.step == 2){
+                if(this.step == 3){
+                    this.unlockVarients();
                     this.$store.dispatch('gameOver')
                     this.$emit('changeComponent', 'home')
                 } else {
                     this.step++
                 }
+            },
+            unlockVarients(){
+                let payload = {};
+                payload.points = this.totalFinalPoints;
+                let unlockedVarients = [];
+                this.$store.state.deck.forEach(card => {
+                    let payloadCard = {
+                        name: card.name,
+                        newVarient: "rainbow" + card.activeImage.slice(-1)
+                    }
+                    unlockedVarients.push(payloadCard)
+                })
+                payload.deck = unlockedVarients
+                this.$store.dispatch('addFinalGameData', payload);
+            }
+        },
+        computed: {
+            totalFinalPoints(){
+                return (Math.floor(this.finalPerkTotal/3)) + (Math.floor(this.finalCoinTotal/300)) + (Math.floor(this.finalDeckSize/10));
+            },
+            finalPerkTotal(){
+                return this.$store.state.playerPerks.length;
+            },
+            finalCoinTotal(){
+                return this.$store.state.coin;
+            },
+            finalDeckSize(){
+                return this.$store.state.deck.length;
             }
         }
     }
