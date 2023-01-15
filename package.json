@@ -1,6 +1,9 @@
 {
   "name": "tf-deck-builder",
   "version": "0.1.0",
+  "description": "An engaging deck building game with TF themes",
+  "author": "FapInteractive",
+  "license": "ISC",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,6 +16,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "random-dungeon-generator": "^1.0.32",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.6.0",

@@ -31,13 +31,10 @@
         </v-row>
       </v-card>
     <story v-if="activeComponent == 'story'" v-on:changeComponent="changeComponent"></story>
+    <dungeonRoom v-if="activeComponent == 'dungeonRoom'" v-on:changeComponent="changeComponent"></dungeonRoom>
     <character-select v-if="activeComponent == 'characterSelect'" v-on:changeComponent="changeComponent"></character-select>
     <home v-if="activeComponent == 'home'" v-on:changeComponent="changeComponent"></home>
     <rules v-if="activeComponent == 'rules'" v-on:changeComponent="changeComponent"></rules>
-    <doorRoom v-if="activeComponent == 'doorRoom'" v-on:changeComponent="changeComponent"></doorRoom>
-    <merchantRoom v-if="activeComponent == 'merchantRoom'" v-on:changeComponent="changeComponent"></merchantRoom>
-    <battleScreen v-if="activeComponent == 'battleScreen'" v-on:changeComponent="changeComponent"></battleScreen>
-    <chestRoom v-if="activeComponent == 'chestRoom'" v-on:changeComponent="changeComponent"></chestRoom>
     <midGameStories v-if="activeComponent == 'midGameStories'" v-on:changeComponent="changeComponent"></midGameStories>
     <gameOver v-if="activeComponent == 'gameOver'" v-on:changeComponent="changeComponent"></gameOver>
     <endGameStory v-if="activeComponent == 'endGameStory'" v-on:changeComponent="changeComponent"></endGameStory>
@@ -50,13 +47,10 @@
 
 <script>
   import story from './components/story.vue'
+  import dungeonRoom from './components/dungeonRoom.vue'
   import characterSelect from './components/characterSelect.vue'
   import home from './components/home.vue'
   import rules from './components/rules.vue'
-  import doorRoom from './components/doorRoom.vue'
-  import merchantRoom from './components/merchantRoom.vue'
-  import battleScreen from './components/battleScreen.vue'
-  import chestRoom from './components/chestRoom.vue'
   import midGameStories from './components/midGameStories.vue'
   import gameOver from './components/gameOver.vue'
   import endGameStory from './components/endGameStory.vue'
@@ -66,13 +60,10 @@
   export default {
     components: {
     story,
+    dungeonRoom,
     characterSelect,
     home,
     rules,
-    doorRoom,
-    merchantRoom,
-    battleScreen,
-    chestRoom,
     midGameStories,
     gameOver,
     endGameStory,
@@ -86,6 +77,7 @@
     methods: {
       changeComponent: function(newcomponent) {
         console.log('Change component hit')
+        console.log(newcomponent)
         this.activeComponent = newcomponent
       }
     },

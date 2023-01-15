@@ -13,8 +13,10 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1920,
+    height: 1080,
+    title: "TF Deck Builder",
+    fullscreen: true,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

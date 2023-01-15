@@ -8,6 +8,7 @@ export default new Vuex.Store({
     coin: 100,
     floor: 1,
     stage: 1,
+    enemyType: '',
     currentCaracter: null,
     playerBaseHealth: 8,
     playerHealth: 8,
@@ -1021,6 +1022,9 @@ export default new Vuex.Store({
     },
     increaseDifficulty: function(state) {
         state.difficulty +=1
+    },
+    setEnemyType(state, payload){
+        state.enemyType = payload;
     }
   },
   actions: {
@@ -1109,6 +1113,9 @@ export default new Vuex.Store({
     },
     increaseDifficulty: function(context) {
         context.commit('increaseDifficulty')
+    },
+    setEnemyType: function(context, payload){
+        context.commit('setEnemyType', payload)
     }
   },
   modules: {

@@ -5,9 +5,9 @@
             <v-col cols="12" class="text-center">
                 <v-btn width="15vw" color="blue" @click="changeComponent">NEW GAME</v-btn>
             </v-col>
-            <v-col cols="12" class="text-center">
+            <!-- <v-col cols="12" class="text-center">
                 <v-btn width="15vw" color="blue">LOAD GAME</v-btn>
-            </v-col>
+            </v-col> -->
         </v-row>
     </v-container>
   </template>

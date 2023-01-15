@@ -46,8 +46,7 @@
       }),
       methods: {
         ascendStage(){
-            this.$store.dispatch('ascendStage');
-            this.$emit('changeComponent', 'doorRoom');
+            this.$emit('leaveShop');
         },
         addCard(card){
             this.$store.dispatch('addCard', card);

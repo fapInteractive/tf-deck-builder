@@ -1,4 +1,4 @@
-<template>
+<template style="overflow: hidden">
 	<v-container fluid>
 		<v-row class="justify-space-around pt-5">
 			<v-col cols="2">
@@ -413,7 +413,7 @@ export default {
       this.playerPower = 0;
       this.enemyPower = 0;
 	  let remainingPlayerEnergy = this.playerEnergy;
-      this.playerEnergy = this.playerBaseEnergy + this.playerModifications.zen + (this.playerPerks.map(perk => perk.name).includes('Implants') ? 2 : 0) + (this.playerPerks.map(perk => perk.name).includes('Oral Fixation') ? remainingPlayerEnergy : 0);
+      this.playerEnergy = this.playerBaseEnergy + this.playerModifications.zen + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2) + (this.playerPerks.map(perk => perk.name).includes('Oral Fixation') ? remainingPlayerEnergy : 0);
       this.enemyEnergy = this.enemyBaseEnergy + this.enemyModifications.zen;
       this.drawTurn();
       this.drawEnemyTurn();
@@ -645,21 +645,16 @@ export default {
 			}
 		},
     ascendStage(){
-		if(this.$store.state.stage == 4 && this.$store.state.floor == 5){
-			this.$emit('changeComponent', 'endGameStory');
-		}else if(this.$store.state.stage == 8){
-        	this.$store.dispatch('ascendFloor');
-			this.$emit('changeComponent', 'midGameStories');
-		} else if(this.$store.state.floor == 4) {
-			this.$store.dispatch('ascendFloor');
-			this.$emit('changeComponent', 'midGameStories');
+		if(this.$store.state.enemyType == "enemy"){
+			this.$emit('completeBattle');
+		} else if(this.$store.state.enemyType == "boss") {
+			this.$emit('completeBossBattle');
 		} else {
-			this.$store.dispatch('ascendStage');
-			this.$emit('changeComponent', 'doorRoom');
+			this.$emit('completeRun');
 		}
     },
 	gameOverContinue(){
-		this.$emit('changeComponent', 'gameOver')
+		this.$emit('gameOver')
 	},
     addCard(card){
       this.$store.dispatch('addCard', card);
@@ -762,16 +757,20 @@ export default {
 		this.drawHand();
 		this.drawEnemyHand();
     let availableEnemies = []
-	if(this.$store.state.floor == 5){
-		this.enemyImages = this.$store.state.finalBosses[this.$store.state.stage - 1].enemyPictures
-	} else if(this.$store.state.stage < 8 && this.$store.state.floor != 4){
-      availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
-      this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random()*availableEnemies.enemyPictures.length)]
-    } else if((this.$store.state.stage == 8 && this.$store.state.floor != 5) || this.$store.state.floor == 4) {
-      availableEnemies = this.$store.state.bosses.find(boss => boss.floor == this.$store.state.floor)
-      this.enemyImages = availableEnemies.enemyPictures[0];
-    } else {
-		this.enemyImages = this.$store.state.finalBosses[this.$store.state.floor]
+	if(this.$store.state.enemyType == 'enemy'){
+		availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
+		this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random()*availableEnemies.enemyPictures.length)]
+	}
+	if(this.$store.state.enemyType == 'boss'){
+		if(this.$store.state.floor == 5){
+			this.enemyImages = this.$store.state.finalBosses[this.$store.state.stage - 1].enemyPictures
+		} else {
+			availableEnemies = this.$store.state.bosses.find(boss => boss.floor == this.$store.state.floor)
+			this.enemyImages = availableEnemies.enemyPictures[0];
+		}
+	}
+	if(this.$store.state.enemyType == 'eliteBoss'){
+		this.enemyImages = this.$store.state.finalBosses[3].enemyPictures
 	}
     this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
     this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
