@@ -460,7 +460,7 @@ export default {
 				this.playerModifications.assWorship -= 1;
 			}
 			if (this.playerModifications.humanChair > 0) {
-				this.playerPower += this.playerPlayedCards.length * 2
+				this.playerPower += this.playerPlayedCards.length
 				this.playerModifications.humanChair -= 1;
 			}
 			if (this.playerModifications.commando > 0) {
@@ -612,7 +612,7 @@ export default {
 				this.enemyModifications.assWorship -= 1;
 			}
 			if (this.enemyModifications.humanChair > 0) {
-				this.enemyPower += this.enemyPlayedCards.length * 2
+				this.enemyPower += this.enemyPlayedCards.length
 				this.enemyModifications.humanChair -= 1;
 			}
 			if (this.enemyModifications.commando > 0) {
