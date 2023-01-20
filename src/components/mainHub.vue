@@ -1,14 +1,17 @@
 <template>
     <v-container>
         <v-row>
+            <v-col cols="12" class="text-center">
+                <h1>Main Menu</h1>
+            </v-col>
             <v-col cols="4" class="text-center">
-                <v-btn width="15vw" color="blue" @click="changeComponent('store')" disabled>Store</v-btn>
+                <v-btn width="15vw" color="blue" @click="changeComponent('store')">Store</v-btn>
             </v-col>
             <v-col cols="4" class="text-center">
                 <v-btn width="15vw" color="blue" @click="changeComponent('cardSettings')">Card Settings</v-btn>
             </v-col>
             <v-col cols="4" class="text-center">
-                <v-btn width="15vw" color="blue" @click="changeComponent('rules')">Rules</v-btn>
+                <v-btn width="15vw" color="blue" @click="changeComponent('rules')">How To Play</v-btn>
             </v-col>
             <v-col cols="12" class="text-center">
                 <h3>Difficulty</h3>

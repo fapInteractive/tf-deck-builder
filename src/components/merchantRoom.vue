@@ -112,7 +112,7 @@
       },
       computed: {
         cards: function() {
-            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,6)))
+            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).sort(() => .5 - Math.random()).slice(0,6)))
             returnCards.forEach(card => {
                 var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                 var valueChange = Math.floor(Math.random() * 10) + 1;

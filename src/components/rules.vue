@@ -2,13 +2,19 @@
     <v-container>
         <v-row class="justify-center">
             <v-col cols="12" class="text-center">
+                <h1>MAIN GAMEPLAY</h1>
+            </v-col>
+            <v-col cols="8">
+                <p>Navigation in the overworld is done via arrow keys. Battles are played by selecting cards with the mouse. Once you hare happy with the cards you've played, click the "Play Cards" button to finsh the round.</p>
+            </v-col>
+            <v-col cols="12" class="text-center">
                 <h1>PLAYABLE CARDS</h1>
             </v-col>
             <v-col cols="2">
-                <v-img :src="require('@/assets/cards/static/varient1/flash.png')"></v-img>
+                <v-img :src="require('@/assets/cards/static/variant1/flash.png')"></v-img>
             </v-col>
             <v-col cols="6">
-                <p>This is a <span class="highlight-text">playable card</span>. All playable cards cost <span class="highlight-text">energy</span> to use, denoted in the top left corner. The number in the top right denotes a card's <span class="highlight-text">power</span>. At the end of a turn, the power of all cards played by each side are added together, and whoever has a lower total loses one hit point. The first to reach zero loses. Certain cards also have additional special rules.</p>
+                <p>This is a <span class="highlight-text">playable card</span>. All playable cards cost <span class="highlight-text">energy</span> to use, denoted in the top left corner. The number in the top right denotes a card's <span class="highlight-text">power</span>. At the end of a turn, the power of all cards played by each side are added together, and whoever has a lower total loses one hit point. The first to reach zero loses. Certain cards also have additional special rules, indicated by a purple border, that are denoted on the card itself by hovering over the card's artwork.</p>
             </v-col>
             <v-col cols="12" class="text-center">
                 <h1>COMBAT</h1>
@@ -66,7 +72,7 @@
             </v-col>
             <v-col cols="12" class="text-center mb-5">
                 <v-btn color="blue" @click="changeComponent('mainHub')">
-                    <h1>Return to Hub</h1>
+                    <h1>Return to Main</h1>
                 </v-btn>
             </v-col>
         </v-row>

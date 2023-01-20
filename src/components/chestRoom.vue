@@ -64,7 +64,7 @@
             return this.$store.state.perks.sort(() => .5 - Math.random()).slice(0,4)
         },
         cards: function() {
-            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,3)))
+            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).sort(() => .5 - Math.random()).slice(0,3)))
             returnCards.forEach(card => {
                 card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
             })
