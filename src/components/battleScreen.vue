@@ -486,7 +486,9 @@ export default {
 			}
 			if (this.playerModifications.reflecting > 0) {
 				if (this.playerPlayedCards.length > 0) {
-					this.playerPower += this.playerPlayedCards[0].power;
+					if(this.enemyModifications.commando == 0 && this.enemyModifications.commando == 0){
+						this.playerPower += this.playerPlayedCards[0].power;
+					}
 					this.playerModifications.reflecting -= 1;
 				}
 			}
@@ -638,7 +640,9 @@ export default {
 			}
 			if (this.enemyModifications.reflecting > 0) {
 				if (this.enemyPlayedCards.length > 0) {
-					this.enemyPower += this.enemyPlayedCards[0].power;
+					if(this.playerModifications.commando == 0 && this.playerModifications.commando == 0){
+						this.enemyPower += this.enemyPlayedCards[0].power;
+					}
 					this.enemyModifications.reflecting -= 1;
 				}
 			}
