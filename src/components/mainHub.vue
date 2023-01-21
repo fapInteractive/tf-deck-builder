@@ -22,6 +22,8 @@
                 <v-btn :disabled="difficulty == 0" @click="decreaseDifficulty">
                     <v-icon>mdi-arrow-down-thin</v-icon>
                 </v-btn>
+                <h5 v-if="difficulty > 0">Enemy health is increased by difficulty level</h5>
+                <h5 v-if="difficulty > 0">Enemy energy is increased by difficulty level divided by 2</h5>
             </v-col>
             <v-col cols="12" class="text-center">
                 <v-btn width="15vw" color="blue" @click="beginGame()">Begin Game</v-btn>

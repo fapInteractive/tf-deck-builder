@@ -11,7 +11,7 @@
             <v-card-subtitle class="justify-center"> {{ availableVarientsRemaining > 0 ?  availableVarientsRemaining + " varients left to unlock" : "SOLD OUT"}} </v-card-subtitle>
             <v-card-subtitle class="justify-center"> (Up to 3 cards per pack) </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="green lighten-2" text @click="purchaseVarients()" :disabled="availableVarientsRemaining == 0"> Purchase </v-btn>
+              <v-btn color="green lighten-2" text @click="purchaseVarients()" :disabled="availableVarientsRemaining == 0 || points < 1"> Purchase </v-btn>
               <v-spacer></v-spacer>
               <h4>1 Point</h4>
             </v-card-actions>
@@ -24,7 +24,7 @@
             <v-card-subtitle class="justify-center"> {{ unlockableCardsRemianing > 0 ?  unlockableCardsRemianing + " cards left to unlock" : "SOLD OUT"}} </v-card-subtitle>
             <v-card-subtitle class="justify-center"> (Up to 3 cards per pack) </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="pink lighten-2" text @click="purchaseNewCards()" :disabled="unlockableCardsRemianing == 0"> Purchase </v-btn>
+              <v-btn color="pink lighten-2" text @click="purchaseNewCards()" :disabled="unlockableCardsRemianing == 0 || points < 5"> Purchase </v-btn>
               <v-spacer></v-spacer>
               <h4>5 Points</h4>
             </v-card-actions>
@@ -47,6 +47,9 @@
         </v-col>
         <v-col cols="12" class="text-center">
           <v-btn width="15vw" color="blue" @click="changeComponent('mainHub')">Return to Main</v-btn>
+        </v-col>
+        <v-col cols="12" class="text-center" v-if="points < 50">
+          <v-btn width="15vw" color="red" @click="cheatPoints()">Cheat points</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -145,6 +148,9 @@
         formatVarientName(str){
           let firstLetterCaps = str.charAt(0).toUpperCase() + str.slice(1);
           return [firstLetterCaps.slice(0, firstLetterCaps.length-1),' ', firstLetterCaps.slice(firstLetterCaps.length-1)].join('')
+        },
+        cheatPoints(){
+          this.$store.dispatch('cheatPoints')
         }
       },
         computed: {

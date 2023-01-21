@@ -888,10 +888,11 @@ export default {
 			if (this.$store.state.floor == 4) {
 				baseEnergyAddition += 4
 			}
-			if (this.$store.state.stage == 8) {
+			if (this.$store.state.enemyType == 'boss' || this.$store.state.enemyType == 'eliteBoss') {
 				baseEnergyAddition += 1
 			}
-			return 3 + baseEnergyAddition;
+			
+			return 3 + baseEnergyAddition + Math.floor(this.$store.state.difficulty/2);
 		},
 		playerPerks() {
 			return this.$store.state.playerPerks;
@@ -920,8 +921,8 @@ export default {
 		}
 		this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
 		this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
-		this.enemyBaseHealth = 4 + (this.$store.state.floor - 1)
-		this.enemyHealth = 4 + (this.$store.state.floor - 1)
+		this.enemyBaseHealth = 4 + (this.$store.state.floor - 1) + this.$store.state.difficulty;
+		this.enemyHealth = 4 + (this.$store.state.floor - 1) + this.$store.state.difficulty;
 	}
 }
 </script>

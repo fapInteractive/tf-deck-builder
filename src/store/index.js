@@ -15,9 +15,9 @@ export default new Vuex.Store({
     playerBaseEnergy: 3,
     cardRemovalCount: 0,
     playerPerks: [],
-    upgradePoints: 100,
+    upgradePoints: 0,
     difficulty: 0,
-    maxDifficulty: 0,
+    maxDifficulty: 10,
     enemies: [
         {
             floor: 1,
@@ -1322,6 +1322,9 @@ export default new Vuex.Store({
             state.cards.find(x => x.name == card.name).unlocked = true;
         });
         state.upgradePoints -= 5;
+    },
+    cheatPoints(state){
+        state.upgradePoints += 100
     }
   },
   actions: {
@@ -1419,6 +1422,9 @@ export default new Vuex.Store({
     },
     purchaseNewCardPack(context, payload){
         context.commit('purchaseNewCardPack', payload)
+    },
+    cheatPoints(context){
+        context.commit('cheatPoints')
     }
   },
   modules: {
