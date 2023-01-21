@@ -1,8 +1,13 @@
 <template>
     <v-container>
+        <v-row>
+            <v-col cols="12" class="text-center">
+                <v-btn color="pink" @click="nextStep">Continue</v-btn>
+            </v-col>
+        </v-row>
         <v-row class="justify-space-around">
             <v-col cols="3">
-                <v-img v-if="step < 2" :src="playerImage" height='100%'></v-img>
+                <v-img v-if="step < 2" :src="playerImage" height='50%' contain></v-img>
             </v-col>
             <v-col cols="6"> 
                 <v-row class="'justify-center'">
@@ -77,12 +82,7 @@
                 </v-row>           
             </v-col>
             <v-col cols="3">
-                <v-img v-if="step < 2" :src="enemyImage" height='100%'></v-img>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" class="text-center">
-                <v-btn color="pink" @click="nextStep">Continue</v-btn>
+                <v-img v-if="step < 2" :src="enemyImage" height='50%' contain></v-img>
             </v-col>
         </v-row>
     </v-container>

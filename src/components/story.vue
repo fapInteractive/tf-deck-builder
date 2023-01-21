@@ -2,14 +2,19 @@
     <v-container>
         <v-row class="justify-space-between" v-if="step == 0">
             <v-col cols="12">
-                <v-img :src="require('@/assets/barBG.jpg')" contain height="75vh" class="text-center">
+                <v-img :src="require('@/assets/barBG.jpg')" contain height="50vh" class="text-center">
                     <h1 style="text-shadow: 2px 2px #000;">Night time, some bar somewhere in the US...</h1>
                 </v-img>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col cols="12" class="text-center">
+                <v-btn color="pink" @click="nextStep">Continue</v-btn>
+            </v-col>
+        </v-row>
         <v-row class="justify-space-around" v-if="step > 0">
             <v-col cols="3">
-                <v-img :src="playerImage" height="100%"></v-img>
+                <v-img :src="playerImage" height="50%" contain></v-img>
             </v-col>
             <v-col cols="6" class="text-center" v-if="step == 1">
                 <div class="triangle-border left">
@@ -73,12 +78,7 @@
                 </div>
             </v-col>
             <v-col cols="3">
-                <v-img :src="enemyImage" height="100%"></v-img>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" class="text-center">
-                <v-btn color="pink" @click="nextStep">Continue</v-btn>
+                <v-img :src="enemyImage" height="50%" contain></v-img>
             </v-col>
         </v-row>
     </v-container>

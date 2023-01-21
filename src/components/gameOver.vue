@@ -1,5 +1,10 @@
 <template>
     <v-container>
+        <v-row>
+            <v-col cols="12" class="text-center">
+                <v-btn color="pink" @click="nextStep">Continue</v-btn>
+            </v-col>
+        </v-row>
         <v-row class="justify-space-around">
             <v-col cols="6" v-if="step == 0"> 
                 <v-row class="'justify-center'">
@@ -26,7 +31,7 @@
                 </v-row>           
             </v-col>
             <v-col cols="3" v-if="step == 0">
-                <v-img :src="enemyImage" height='100%'></v-img>
+                <v-img :src="enemyImage" height='50%' contain></v-img>
             </v-col>
             <v-col cols="12" class="text-center" v-if="step == 1">
                 <h1>A few months later...</h1>
@@ -62,11 +67,6 @@
             </v-col>
             <v-col cols="12" class="text-center" v-if="step == 2">
                 <v-img :src="endingAnimation" contain height="50%"></v-img>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" class="text-center">
-                <v-btn color="pink" @click="nextStep">Continue</v-btn>
             </v-col>
         </v-row>
     </v-container>
