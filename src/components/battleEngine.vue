@@ -312,7 +312,7 @@
                   }
                   this.playerModifications.bubbleButts += 1;
               }
-              if (cardArray.includes("caughtMasturbating")) {
+              if (cardArray.includes("undressing")) {
                   if (this.playerHand.length > 0) {
                       const random = Math.floor(Math.random() * this.playerHand.length);
                       this.playerHand.splice(random, 1);
@@ -423,7 +423,7 @@
                   }
                   this.enemyModifications.bubbleButts += 1;
               }
-              if (cardArray.includes("caughtMasturbating")) {
+              if (cardArray.includes("undressing")) {
                   if (this.enemyHand.length > 0) {
                       const random = Math.floor(Math.random() * this.enemyHand.length);
                       this.enemyHand.splice(random, 1);

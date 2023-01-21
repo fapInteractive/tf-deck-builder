@@ -1,4 +1,4 @@
-<template>
+<template style="overflow: hidden">
 	<v-container fluid>
 		<v-row class="justify-space-around pt-5">
 			<v-col cols="2">
@@ -165,7 +165,7 @@ export default {
 		enemyBaseHealth: 4,
 		enemyHealth: 4,
 		playerEnergy: 0,
-    enemyEnergy: 3,
+		enemyEnergy: 3,
 		energySnackbar: false,
 		playerPlayedCards: [],
 		enemyPlayedCards: [],
@@ -178,19 +178,21 @@ export default {
 		playerDiscardPile: [],
 		enemyDiscardPile: [],
 		roundOver: false,
-    turnNumber: 1,
+		turnNumber: 1,
 		playerBimboficationActive: false,
 		enemyBimboficationActive: false,
 		straponActive: false,
-    cardsPlayed: false,
-    matchWon: false,
-	gameOver: false,
-    roundOutcome: '',
-    roundWinner: '',
-    prizeCardSelected: false,
-    rewardsScreen: false,
-	gameOverScreen: false,
-    selectedPrizeCard: '',
+		suckTheStrapActive: false,
+		peggingActive: false,
+		cardsPlayed: false,
+		matchWon: false,
+		gameOver: false,
+		roundOutcome: '',
+		roundWinner: '',
+		prizeCardSelected: false,
+		rewardsScreen: false,
+		gameOverScreen: false,
+		selectedPrizeCard: '',
 		enemyImages: [],
 		playerModifications: {
 			abundance: 0,
@@ -207,7 +209,12 @@ export default {
 			restrained: 0,
 			seducing: 0,
 			thong: 0,
-			zen: 0
+			zen: 0,
+			assWorship: 0,
+			cumCleanup: 0,
+			forcedBi: 0,
+			humanChair: 0,
+			latexWin: false
 		},
 		enemyModifications: {
 			abundance: 0,
@@ -224,7 +231,12 @@ export default {
 			restrained: 0,
 			seducing: 0,
 			thong: 0,
-			zen: 0
+			zen: 0,
+			assWorship: 0,
+			cumCleanup: 0,
+			forcedBi: 0,
+			humanChair: 0,
+			latexWin: false
 		}
 	}),
 	methods: {
@@ -233,87 +245,87 @@ export default {
 				this.playerHand.push(this.playerDeck.shift())
 			}
 		},
-    drawEnemyHand: function(){
-      for (let i = 0; i < 3; i++) {
-        this.enemyHand.push(this.enemyDeck.shift())
+		drawEnemyHand: function() {
+			for (let i = 0; i < 3; i++) {
+				this.enemyHand.push(this.enemyDeck.shift())
 			}
-    },
+		},
 		drawTurn: function() {
 			if (this.playerHand.length < 6) {
-        if(this.playerDeck.length == 0){
-          this.playerDeck = this.shuffle(this.playerDiscardPile);
-          this.playerDiscardPile = [];
-        }
+				if (this.playerDeck.length == 0) {
+					this.playerDeck = this.shuffle(this.playerDiscardPile);
+					this.playerDiscardPile = [];
+				}
 				this.playerHand.push(this.playerDeck.shift())
 			}
 			for (let i = 0; i < this.playerModifications.enticing; i++) {
-        if(this.playerDeck.length == 0){
-          this.playerDeck = this.shuffle(this.playerDiscardPile);
-          this.playerDiscardPile = [];
-        }
+				if (this.playerDeck.length == 0) {
+					this.playerDeck = this.shuffle(this.playerDiscardPile);
+					this.playerDiscardPile = [];
+				}
 				if (this.playerHand.length < 6) {
 					this.playerHand.push(this.playerDeck.shift())
 				}
 			}
 			this.playerModifications.enticing = 0;
 			for (let i = 0; i < this.playerModifications.seducing; i++) {
-        if(this.playerDeck.length == 0){
-          this.playerDeck = this.shuffle(this.playerDiscardPile);
-          this.playerDiscardPile = [];
-        }
+				if (this.playerDeck.length == 0) {
+					this.playerDeck = this.shuffle(this.playerDiscardPile);
+					this.playerDiscardPile = [];
+				}
 				if (this.playerHand.length < 6) {
 					this.playerHand.push(this.playerDeck.shift())
 				}
 			}
 		},
-    drawEnemyTurn: function() {
+		drawEnemyTurn: function() {
 			if (this.enemyHand.length < 6) {
-        if(this.enemyDeck.length == 0){
-          this.enemyDeck = this.shuffle(this.enemyDiscardPile);
-          this.enemyDiscardPile = [];
-        }
+				if (this.enemyDeck.length == 0) {
+					this.enemyDeck = this.shuffle(this.enemyDiscardPile);
+					this.enemyDiscardPile = [];
+				}
 				this.enemyHand.push(this.enemyDeck.shift())
 			}
 			for (let i = 0; i < this.enemyModifications.enticing; i++) {
-        if(this.enemyDeck.length == 0){
-          this.enemyDeck = this.shuffle(this.enemyDiscardPile);
-          this.enemyDiscardPile = [];
-        }
+				if (this.enemyDeck.length == 0) {
+					this.enemyDeck = this.shuffle(this.enemyDiscardPile);
+					this.enemyDiscardPile = [];
+				}
 				if (this.enemyHand.length < 6) {
 					this.enemyHand.push(this.enemyDeck.shift())
 				}
 			}
 			this.enemyModifications.enticing = 0;
 			for (let i = 0; i < this.enemyModifications.seducing; i++) {
-        if(this.enemyDeck.length == 0){
-          this.enemyDeck = this.shuffle(this.enemyDiscardPile);
-          this.enemyDiscardPile = [];
-        }
+				if (this.enemyDeck.length == 0) {
+					this.enemyDeck = this.shuffle(this.enemyDiscardPile);
+					this.enemyDiscardPile = [];
+				}
 				if (this.enemyHand.length < 6) {
 					this.enemyHand.push(this.enemyDeck.shift())
 				}
 			}
 		},
-    playEnemyCards(){
-      let playOne = Math.floor(Math.random() * 10) + 1;
-      if(playOne > 6){
-        do {
-          let options = this.enemyHand.filter(card => card.cost <= this.enemyEnergy);
-          let card = options[Math.floor(Math.random()*options.length)];
-          this.enemyPlayedCards.push(card);
-          this.enemyHand = this.enemyHand.filter(handCard => handCard.id != card.id);
-          this.enemyEnergy = this.enemyEnergy - card.cost;
-          this.enemyPower += card.power;
-        } while (this.enemyEnergy > Math.min(...this.enemyHand.map(card => card.cost)));
-      } else {
-        let options = this.enemyHand.filter(card => card.cost <= this.enemyEnergy);
-        let card = options[Math.floor(Math.random()*options.length)];
-        this.enemyPlayedCards.push(card);
-        this.enemyHand = this.enemyHand.filter(handCard => handCard.id != card.id);
-        this.enemyEnergy = this.enemyEnergy - card.cost;
-        this.enemyPower += card.power;
-      }
-    },
+		playEnemyCards() {
+			let playOne = Math.floor(Math.random() * 10) + 1;
+			if (playOne > 6) {
+				do {
+					let options = this.enemyHand.filter(card => card.cost <= this.enemyEnergy);
+					let card = options[Math.floor(Math.random() * options.length)];
+					this.enemyPlayedCards.push(card);
+					this.enemyHand = this.enemyHand.filter(handCard => handCard.id != card.id);
+					this.enemyEnergy = this.enemyEnergy - card.cost;
+					this.enemyPower += card.power;
+				} while (this.enemyEnergy > Math.min(...this.enemyHand.map(card => card.cost)));
+			} else {
+				let options = this.enemyHand.filter(card => card.cost <= this.enemyEnergy);
+				let card = options[Math.floor(Math.random() * options.length)];
+				this.enemyPlayedCards.push(card);
+				this.enemyHand = this.enemyHand.filter(handCard => handCard.id != card.id);
+				this.enemyEnergy = this.enemyEnergy - card.cost;
+				this.enemyPower += card.power;
+			}
+		},
 		shuffle(array) {
 			let currentIndex = array.length,
 				randomIndex;
@@ -334,9 +346,9 @@ export default {
 			return array;
 		},
 		playCard(card) {
-      if(this.cardsPlayed){
-        return
-      }
+			if (this.cardsPlayed) {
+				return
+			}
 			if (this.playerModifications.thong > 0) {
 				this.playerEnergy += card.cost;
 				this.playerModifications.thong -= 1;
@@ -345,15 +357,15 @@ export default {
 				return
 			}
 			this.playerEnergy = this.playerEnergy - card.cost;
-      if(card.power == "?"){
-        card.power = 0;
-      }
+			if (card.power == "?") {
+				card.power = 0;
+			}
 			this.playerPower += card.power;
 			this.playerPlayedCards.push(card);
 			this.playerHand = this.playerHand.filter(handCard => handCard.id != card.id)
 		},
 		playCards() {
-      this.playEnemyCards()
+			this.playEnemyCards()
 			let playerPlayedCardNames = this.playerPlayedCards.map(card => card.name);
 			let enemyPlayedCardNames = this.enemyPlayedCards.map(card => card.name);
 			this.checkPlayerModifications();
@@ -362,84 +374,114 @@ export default {
 			this.checkEnemyCardEffects(enemyPlayedCardNames);
 			this.playerPower += this.playerPerks.filter(perk => perk.name == "Strapon").length;
 			this.enemyPower -= this.playerPerks.filter(perk => perk.name == "Bubble Butt").length;
-			if (this.playerPower > this.enemyPower) {
-        this.roundWinner = 'player';
-				if (this.straponActive) {
-          this.straponActive = false;
-          this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power'
+			if (this.playerPower > this.enemyPower && !this.enemyModifications.latexWin) {
+				this.roundWinner = 'player';
+				if (this.straponActive || this.suckTheStrapActive || this.peggingActive) {
+					this.straponActive = false;
+					this.suckTheStrapActive = false;
+					this.peggingActive = false;
+					this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power'
 					this.enemyHealth = this.enemyHealth - 1;
 				}
 				if (this.enemyBimboficationActive) {
-          this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power, enemy blocks'
+					this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power, enemy blocks'
 					this.enemyHealth = this.enemyHealth
 				} else {
-          this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power'
+					this.roundOutcome = 'Player wins round with ' + this.playerPower + ' power'
 					this.enemyHealth = this.enemyHealth - 1;
 				}
 			}
-			if (this.enemyPower > this.playerPower) {
-        this.roundWinner = 'enemy';
-				if (this.straponActive) {
-          this.straponActive = false;
-          this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
+			if (this.enemyPower > this.playerPower && !this.playerModifications.latexWin) {
+				this.roundWinner = 'enemy';
+				if (this.straponActive || this.suckTheStrapActive || this.peggingActive) {
+					this.straponActive = false;
+					this.suckTheStrapActive = false;
+					this.peggingActive = false;
+					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
 					this.playerHealth = this.playerHealth - 1;
 				}
 				if (this.playerBimboficationActive) {
-          this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power, player blocks'
-		  this.playerBimboficationActive = false;
+					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power, player blocks'
+					this.playerBimboficationActive = false;
 					this.playerHealth = this.playerHealth
 				} else {
-          this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
+					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
 					this.playerHealth = this.playerHealth - 1;
 				}
 			}
-      if(this.enemyPower == this.playerPower){
-        this.roundOutcome = 'Round ends in a tie'
-      }
-      if(this.enemyHealth <= 0){
-        this.matchWon = true;
-        this.$store.dispatch('gainMoney', this.prizeMoney)
-      }
-	  if(this.playerHealth <= 0){
-		this.gameOver = true;
-	  }
-      this.cardsPlayed = true;
+			if(this.playerModifications.latexWin){
+				this.roundOutcome = "Latex Set Assembled. Player Wins";
+				this.enemyHealth = 0;
+			}
+			if(this.enemyModifications.latexWin){
+				this.roundOutcome = "Latex Set Assembled. Enemy Wins";
+				this.playerHealth = 0;
+			}
+			if (this.enemyPower == this.playerPower) {
+				this.roundOutcome = 'Round ends in a tie'
+			}
+			if (this.enemyHealth <= 0) {
+				this.enemyHealth = 0;
+				this.matchWon = true;
+				this.$store.dispatch('gainMoney', this.prizeMoney)
+			}
+			if (this.playerHealth <= 0) {
+				this.playerHealth = 0;
+				this.gameOver = true;
+			}
+			this.cardsPlayed = true;
 		},
-    completeTurn(){
-      this.enemyDiscardPile = this.enemyDiscardPile.concat(this.enemyPlayedCards);
-      this.playerDiscardPile = this.playerDiscardPile.concat(this.playerPlayedCards);
-      this.enemyPlayedCards = [];
-      this.playerPlayedCards = [];
-      this.playerPower = 0;
-      this.enemyPower = 0;
-	  let remainingPlayerEnergy = this.playerEnergy;
-      this.playerEnergy = this.playerBaseEnergy + this.playerModifications.zen + (this.playerPerks.map(perk => perk.name).includes('Implants') ? 2 : 0) + (this.playerPerks.map(perk => perk.name).includes('Oral Fixation') ? remainingPlayerEnergy : 0);
-      this.enemyEnergy = this.enemyBaseEnergy + this.enemyModifications.zen;
-      this.drawTurn();
-      this.drawEnemyTurn();
-      this.cardsPlayed = false;
-      this.roundOutcome = '';
-      this.roundWinner = '';
-      this.turnNumber += 1;
-    },
+		completeTurn() {
+			this.enemyDiscardPile = this.enemyDiscardPile.concat(this.enemyPlayedCards);
+			this.playerDiscardPile = this.playerDiscardPile.concat(this.playerPlayedCards);
+			this.enemyPlayedCards = [];
+			this.playerPlayedCards = [];
+			this.playerPower = 0;
+			this.enemyPower = 0;
+			let remainingPlayerEnergy = this.playerEnergy;
+			this.playerEnergy = this.playerBaseEnergy + this.playerModifications.zen + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2) + (this.playerPerks.map(perk => perk.name).includes('Oral Fixation') ? remainingPlayerEnergy : 0);
+			this.enemyEnergy = this.enemyBaseEnergy + this.enemyModifications.zen;
+			this.drawTurn();
+			this.drawEnemyTurn();
+			this.cardsPlayed = false;
+			this.roundOutcome = '';
+			this.roundWinner = '';
+			this.turnNumber += 1;
+		},
 		checkPlayerModifications() {
 			this.playerModifications.abundance += this.playerPlayedCards.length;
-      if(this.playerPlayedCards.length > 0){
-        if(this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'cosplay'){
-          this.playerModifications.cosplay = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
-        }
-        if(this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'girlfriends'){
-          this.playerModifications.girlfriends = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
-        }
-      }
+			if (this.playerPlayedCards.length > 0) {
+				if (this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'cosplay') {
+					this.playerModifications.cosplay = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
+				}
+				if (this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'girlfriends') {
+					this.playerModifications.girlfriends = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
+				}
+			}
 			this.playerModifications.groupUse += this.playerPlayedCards.length;
 			if (this.playerModifications.bubbleButts > 0) {
 				this.enemyPower -= this.enemyPlayedCards.length * 2
 				this.playerModifications.bubbleButts -= 1;
 			}
+			if (this.playerModifications.cumCleanup > 0) {
+				this.enemyPower -= this.enemyPlayedCards.length * 2
+				this.playerModifications.cumCleanup -= 1;
+			}
+			if (this.playerModifications.assWorship > 0) {
+				this.enemyPower -= this.enemyPlayedCards.length
+				this.playerModifications.assWorship -= 1;
+			}
+			if (this.playerModifications.humanChair > 0) {
+				this.playerPower += this.playerPlayedCards.length
+				this.playerModifications.humanChair -= 1;
+			}
 			if (this.playerModifications.commando > 0) {
 				this.enemyPower = 0;
 				this.playerModifications.commando -= 1
+			}
+			if (this.playerModifications.forcedBi > 0) {
+				this.enemyPower = 0;
+				this.playerModifications.forcedBi -= 1
 			}
 			if (this.playerModifications.freeUse > 0) {
 				if (this.playerPlayedCards.length >= 2 && this.playerModifications.freeUse >= 2) {
@@ -456,7 +498,9 @@ export default {
 			}
 			if (this.playerModifications.reflecting > 0) {
 				if (this.playerPlayedCards.length > 0) {
-					this.playerPower += this.playerPlayedCards[0].power;
+					if(this.enemyModifications.commando == 0 && this.enemyModifications.commando == 0){
+						this.playerPower += this.playerPlayedCards[0].power;
+					}
 					this.playerModifications.reflecting -= 1;
 				}
 			}
@@ -481,7 +525,19 @@ export default {
 				}
 				this.playerModifications.bubbleButts += 1;
 			}
-			if (cardArray.includes("caughtMasturbating")) {
+			if (cardArray.includes("cumCleanup")) {
+				if (this.playerModifications.cumCleanup == 0) {
+					this.enemyPower -= this.enemyPlayedCards.length * 2
+				}
+				this.playerModifications.cumCleanup += 1;
+			}
+			if (cardArray.includes("assWorship")) {
+				if (this.playerModifications.assWorship == 0) {
+					this.enemyPower -= this.enemyPlayedCards.length
+				}
+				this.playerModifications.assWorship += 1;
+			}
+			if (cardArray.includes("undressing")) {
 				if (this.playerHand.length > 0) {
 					const random = Math.floor(Math.random() * this.playerHand.length);
 					this.playerHand.splice(random, 1);
@@ -532,25 +588,71 @@ export default {
 			if (cardArray.includes("zen")) {
 				this.playerModifications.zen += 1
 			}
+			if (cardArray.includes("suckTheStrap")) {
+				this.suckTheStrapActive = true;
+			}
+			if (cardArray.includes("pegging")) {
+				this.peggingActive = true;
+			}
+			if (cardArray.includes("forcedBi")) {
+				this.enemyPower = 0;
+				this.playerModifications.forcedBi += 1;
+			}
+			if (cardArray.includes("humanChair")) {
+				this.playerModifications.humanChair += 2;
+			}
+			if(cardArray.includes("latexSet")){
+				let latexArr = ["latexBoots", "latexGloves", "latexClothes"];
+				let cardNames = this.playerHand.map(card => card.name);
+				if(latexArr.every(r => cardNames.includes(r))){
+					this.playerModifications.latexWin = true
+				}
+			}
+			if(cardArray.includes("latexDoll")){
+				if(this.playerDeck.filter(card => card.name.includes("latex")).length > 0){
+					let index = this.playerDeck.findIndex(card => card.name.includes('latex'));
+					this.playerHand.push(this.playerDeck[index]);
+					this.playerDeck.splice(index, 1);
+				}
+			}
+			if(cardArray.includes("secondSkin")){
+				this.playerPower += ((this.playerDeck.filter(card => card.name.includes("latex")).length + this.playerHand.filter(card => card.name.includes("latex")).length + this.playerDiscardPile.filter(card => card.name.includes("latex")).length) * 2);
+			}
 		},
 		checkEnemyModifications() {
 			this.enemyModifications.abundance += this.enemyPlayedCards.length;
-      if(this.enemyPlayedCards.length > 0){
-        if(this.enemyPlayedCards[this.enemyPlayedCards.length - 1].name != 'cosplay'){
-          this.enemyModifications.cosplay = this.enemyPlayedCards[this.enemyPlayedCards.length - 1].power;
-        }
-        if(this.enemyPlayedCards[this.enemyPlayedCards.length - 1].name != 'girlfriends'){
-          this.enemyModifications.girlfriends = this.enemyPlayedCards[this.enemyPlayedCards.length - 1].power;
-        }
-      }
+			if (this.enemyPlayedCards.length > 0) {
+				if (this.enemyPlayedCards[this.enemyPlayedCards.length - 1].name != 'cosplay') {
+					this.enemyModifications.cosplay = this.enemyPlayedCards[this.enemyPlayedCards.length - 1].power;
+				}
+				if (this.enemyPlayedCards[this.enemyPlayedCards.length - 1].name != 'girlfriends') {
+					this.enemyModifications.girlfriends = this.enemyPlayedCards[this.enemyPlayedCards.length - 1].power;
+				}
+			}
 			this.enemyModifications.groupUse += this.enemyPlayedCards.length;
 			if (this.enemyModifications.bubbleButts > 0) {
 				this.playerPower -= this.playerPlayedCards.length * 2
 				this.enemyModifications.bubbleButts -= 1;
 			}
+			if (this.enemyModifications.cumCleanup > 0) {
+				this.playerPower -= this.playerPlayedCards.length * 2
+				this.enemyModifications.cumCleanup -= 1;
+			}
+			if (this.enemyModifications.assWorship > 0) {
+				this.playerPower -= this.playerPlayedCards.length
+				this.enemyModifications.assWorship -= 1;
+			}
+			if (this.enemyModifications.humanChair > 0) {
+				this.enemyPower += this.enemyPlayedCards.length
+				this.enemyModifications.humanChair -= 1;
+			}
 			if (this.enemyModifications.commando > 0) {
 				this.playerPower = 0;
 				this.enemyModifications.commando -= 1
+			}
+			if (this.enemyModifications.forcedBi > 0) {
+				this.playerPower = 0;
+				this.enemyModifications.forcedBi -= 1
 			}
 			if (this.enemyModifications.freeUse > 0) {
 				if (this.enemyPlayedCards.length >= 2 && this.enemyModifications.freeUse >= 2) {
@@ -567,7 +669,9 @@ export default {
 			}
 			if (this.enemyModifications.reflecting > 0) {
 				if (this.enemyPlayedCards.length > 0) {
-					this.enemyPower += this.enemyPlayedCards[0].power;
+					if(this.playerModifications.commando == 0 && this.playerModifications.commando == 0){
+						this.enemyPower += this.enemyPlayedCards[0].power;
+					}
 					this.enemyModifications.reflecting -= 1;
 				}
 			}
@@ -592,14 +696,26 @@ export default {
 				}
 				this.enemyModifications.bubbleButts += 1;
 			}
-			if (cardArray.includes("caughtMasturbating")) {
+			if (cardArray.includes("cumCleanup")) {
+				if (this.enemyModifications.cumCleanup == 0) {
+					this.playerPower -= this.playerPlayedCards.length * 2
+				}
+				this.enemyModifications.cumCleanup += 1;
+			}
+			if (cardArray.includes("assWorship")) {
+				if (this.enemyModifications.assWorship == 0) {
+					this.playerPower -= this.playerPlayedCards.length
+				}
+				this.enemyModifications.assWorship += 1;
+			}
+			if (cardArray.includes("undressing")) {
 				if (this.enemyHand.length > 0) {
 					const random = Math.floor(Math.random() * this.enemyHand.length);
 					this.enemyHand.splice(random, 1);
 				}
 			}
 			if (cardArray.includes("commando")) {
-				this.enemyPower = 0;
+				this.playerPower = 0;
 				this.enemyModifications.commando += 1;
 			}
 			if (cardArray.includes("cosplay")) {
@@ -643,29 +759,54 @@ export default {
 			if (cardArray.includes("zen")) {
 				this.enemyModifications.zen += 1
 			}
+			if (cardArray.includes("suckTheStrap")) {
+				this.suckTheStrapActive = true;
+			}
+			if (cardArray.includes("pegging")) {
+				this.peggingActive = true;
+			}
+			if (cardArray.includes("forcedBi")) {
+				this.playerPower = 0;
+				this.enemyModifications.forcedBi += 1;
+			}
+			if (cardArray.includes("humanChair")) {
+				this.enemyModifications.humanChair += 2
+			}
+			if(cardArray.includes("latexSet")){
+				let latexArr = ["latexBoots", "latexGloves", "latexClothes"];
+				let cardNames = this.enemyHand.map(card => card.name);
+				if(latexArr.every(r => cardNames.includes(r))){
+					this.enemyModifications.latexWin = true
+				}
+			}
+			if(cardArray.includes("latexDoll")){
+				if(this.enemyDeck.filter(card => card.name.includes("latex")).length > 0){
+					let index = this.enemyDeck.findIndex(card => card.name.includes('latex'));
+					this.enemyHand.push(this.enemyDeck[index]);
+					this.enemyDeck.splice(index, 1);
+				}
+			}
+			if(cardArray.includes("secondSkin")){
+				this.enemyPower += ((this.enemyDeck.filter(card => card.name.includes("latex")).length + this.enemyHand.filter(card => card.name.includes("latex")).length + this.enemyDiscardPile.filter(card => card.name.includes("latex")).length) * 2);
+			}
 		},
-    ascendStage(){
-		if(this.$store.state.stage == 4 && this.$store.state.floor == 5){
-			this.$emit('changeComponent', 'endGameStory');
-		}else if(this.$store.state.stage == 8){
-        	this.$store.dispatch('ascendFloor');
-			this.$emit('changeComponent', 'midGameStories');
-		} else if(this.$store.state.floor == 4) {
-			this.$store.dispatch('ascendFloor');
-			this.$emit('changeComponent', 'midGameStories');
-		} else {
-			this.$store.dispatch('ascendStage');
-			this.$emit('changeComponent', 'doorRoom');
+		ascendStage() {
+			if (this.$store.state.enemyType == "enemy") {
+				this.$emit('completeBattle');
+			} else if (this.$store.state.enemyType == "boss") {
+				this.$emit('completeBossBattle');
+			} else {
+				this.$emit('completeRun');
+			}
+		},
+		gameOverContinue() {
+			this.$emit('gameOver')
+		},
+		addCard(card) {
+			this.$store.dispatch('addCard', card);
+			this.prizeCardSelected = true;
+			this.selectedPrizeCard = card.id;
 		}
-    },
-	gameOverContinue(){
-		this.$emit('changeComponent', 'gameOver')
-	},
-    addCard(card){
-      this.$store.dispatch('addCard', card);
-      this.prizeCardSelected = true;
-      this.selectedPrizeCard = card.id;
-    }
 	},
 	computed: {
 		playerCharacter: function() {
@@ -702,81 +843,85 @@ export default {
 				return 3
 			}
 		},
-    playerPlayedCardsDisplay: function(){
-      let returnArr = JSON.parse(JSON.stringify(this.playerPlayedCards));
-      return returnArr.reverse()
-    },
-    prizeCards(){
-      var prizeCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,3)))
-      prizeCards.forEach(card => {
-        card.id = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
-      });
-      return prizeCards
-    },
-    prizeMoney(){
-      return Math.floor((75 + ((Math.floor(Math.random() * 25) + 1) * (Math.random() < 0.5 ? -1 : 1))) * (1 + (0.5 * this.$store.state.playerPerks.filter(perk => perk.name == "Cash").length)))
-    },
-    battlefieldBG(){
-      if(this.$store.state.stage == 8){
-        if(this.$store.state.floor == 1){
-          return 'boss-battlefield-1'
-        }
-        if(this.$store.state.floor == 2){
-          return 'boss-battlefield-2'
-        }
-        if(this.$store.state.floor == 3){
-          return 'boss-battlefield-3'
-        }
-      } else if(this.$store.state.floor == 4){
-        return 'boss-battlefield-4'
-      } else {
-        return 'battlefield'
-      }
-    },
-    playerBaseEnergy() {
-      return this.$store.state.playerBaseEnergy
-    },
-    enemyBaseEnergy() {
-      let baseEnergyAddition = 0;
-      if(this.$store.state.floor == 2){
-        baseEnergyAddition += 1
-      }
-      if(this.$store.state.floor == 3){
-        baseEnergyAddition += 2
-      }
-      if(this.$store.state.floor == 4){
-        baseEnergyAddition += 4
-      }
-      if(this.$store.state.stage == 8){
-        baseEnergyAddition += 1
-      }
-      return 3 + baseEnergyAddition;
-    },
-	playerPerks() {
-		return this.$store.state.playerPerks;
-	}
+		playerPlayedCardsDisplay: function() {
+			let returnArr = JSON.parse(JSON.stringify(this.playerPlayedCards));
+			return returnArr.reverse()
+		},
+		prizeCards() {
+			var prizeCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0, 3)))
+			prizeCards.forEach(card => {
+				card.id = ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+			});
+			return prizeCards
+		},
+		prizeMoney() {
+			return Math.floor((75 + ((Math.floor(Math.random() * 25) + 1) * (Math.random() < 0.5 ? -1 : 1))) * (1 + (0.5 * this.$store.state.playerPerks.filter(perk => perk.name == "Cash").length)))
+		},
+		battlefieldBG() {
+			if (this.$store.state.stage == 8) {
+				if (this.$store.state.floor == 1) {
+					return 'boss-battlefield-1'
+				}
+				if (this.$store.state.floor == 2) {
+					return 'boss-battlefield-2'
+				}
+				if (this.$store.state.floor == 3) {
+					return 'boss-battlefield-3'
+				}
+			} else if (this.$store.state.floor == 4) {
+				return 'boss-battlefield-4'
+			} else {
+				return 'battlefield'
+			}
+		},
+		playerBaseEnergy() {
+			return this.$store.state.playerBaseEnergy
+		},
+		enemyBaseEnergy() {
+			let baseEnergyAddition = 0;
+			if (this.$store.state.floor == 2) {
+				baseEnergyAddition += 1
+			}
+			if (this.$store.state.floor == 3) {
+				baseEnergyAddition += 2
+			}
+			if (this.$store.state.floor == 4) {
+				baseEnergyAddition += 4
+			}
+			if (this.$store.state.stage == 8) {
+				baseEnergyAddition += 1
+			}
+			return 3 + baseEnergyAddition;
+		},
+		playerPerks() {
+			return this.$store.state.playerPerks;
+		}
 	},
 	mounted: function() {
 		this.playerDeck = this.shuffle(JSON.parse(JSON.stringify(this.$store.state.deck)))
 		this.enemyDeck = this.shuffle(JSON.parse(JSON.stringify(this.$store.state.enemyDeck)))
 		this.drawHand();
 		this.drawEnemyHand();
-    let availableEnemies = []
-	if(this.$store.state.floor == 5){
-		this.enemyImages = this.$store.state.finalBosses[this.$store.state.stage - 1].enemyPictures
-	} else if(this.$store.state.stage < 8 && this.$store.state.floor != 4){
-      availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
-      this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random()*availableEnemies.enemyPictures.length)]
-    } else if((this.$store.state.stage == 8 && this.$store.state.floor != 5) || this.$store.state.floor == 4) {
-      availableEnemies = this.$store.state.bosses.find(boss => boss.floor == this.$store.state.floor)
-      this.enemyImages = availableEnemies.enemyPictures[0];
-    } else {
-		this.enemyImages = this.$store.state.finalBosses[this.$store.state.floor]
-	}
-    this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
-    this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
-	this.enemyBaseHealth = 4 + (this.$store.state.floor - 1)
-	this.enemyHealth = 4 + (this.$store.state.floor - 1)
+		let availableEnemies = []
+		if (this.$store.state.enemyType == 'enemy') {
+			availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
+			this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random() * availableEnemies.enemyPictures.length)]
+		}
+		if (this.$store.state.enemyType == 'boss') {
+			if (this.$store.state.floor == 5) {
+				this.enemyImages = this.$store.state.finalBosses[this.$store.state.stage - 1].enemyPictures
+			} else {
+				availableEnemies = this.$store.state.bosses.find(boss => boss.floor == this.$store.state.floor)
+				this.enemyImages = availableEnemies.enemyPictures[0];
+			}
+		}
+		if (this.$store.state.enemyType == 'eliteBoss') {
+			this.enemyImages = this.$store.state.finalBosses[3].enemyPictures
+		}
+		this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
+		this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
+		this.enemyBaseHealth = 4 + (this.$store.state.floor - 1)
+		this.enemyHealth = 4 + (this.$store.state.floor - 1)
 	}
 }
 </script>

@@ -43,7 +43,7 @@
                 <h3>{{50 * (cardRemovalCount + 1)}}</h3>
             </v-col>
             <v-col cols="12" class="text-center">
-                <v-btn color="pink" @click="ascendStage">Continue</v-btn>
+                <v-btn color="pink" @click="leaveShop">Continue</v-btn>
             </v-col>
         </v-row>
         <v-dialog
@@ -96,9 +96,8 @@
                 this.purchasedPerks.push(perk.name)
             }  
         },
-        ascendStage(){
-            this.$store.dispatch('ascendStage');
-            this.$emit('changeComponent', 'doorRoom');
+        leaveShop(){
+            this.$emit('leaveShop');
         },
         removeCard(card){
             if(this.coins >= (50 * (this.cardRemovalCount + 1))){
@@ -113,7 +112,7 @@
       },
       computed: {
         cards: function() {
-            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.sort(() => .5 - Math.random()).slice(0,6)))
+            var returnCards = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).sort(() => .5 - Math.random()).slice(0,6)))
             returnCards.forEach(card => {
                 var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                 var valueChange = Math.floor(Math.random() * 10) + 1;

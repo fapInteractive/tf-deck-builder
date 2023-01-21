@@ -116,7 +116,7 @@
                 }
                 if(this.step == 6){
                     console.log('changing component')
-                    this.$emit('changeComponent', 'rules')
+                    this.$emit('changeComponent', 'dungeonRoom')
                 }
                 if(this.step < 6){
                     this.step += 1
