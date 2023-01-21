@@ -214,6 +214,7 @@ export default {
 			cumCleanup: 0,
 			forcedBi: 0,
 			humanChair: 0,
+			latexWin: false
 		},
 		enemyModifications: {
 			abundance: 0,
@@ -235,6 +236,7 @@ export default {
 			cumCleanup: 0,
 			forcedBi: 0,
 			humanChair: 0,
+			latexWin: false
 		}
 	}),
 	methods: {
@@ -372,7 +374,7 @@ export default {
 			this.checkEnemyCardEffects(enemyPlayedCardNames);
 			this.playerPower += this.playerPerks.filter(perk => perk.name == "Strapon").length;
 			this.enemyPower -= this.playerPerks.filter(perk => perk.name == "Bubble Butt").length;
-			if (this.playerPower > this.enemyPower) {
+			if (this.playerPower > this.enemyPower && !this.enemyModifications.latexWin) {
 				this.roundWinner = 'player';
 				if (this.straponActive || this.suckTheStrapActive || this.peggingActive) {
 					this.straponActive = false;
@@ -389,7 +391,7 @@ export default {
 					this.enemyHealth = this.enemyHealth - 1;
 				}
 			}
-			if (this.enemyPower > this.playerPower) {
+			if (this.enemyPower > this.playerPower && !this.playerModifications.latexWin) {
 				this.roundWinner = 'enemy';
 				if (this.straponActive || this.suckTheStrapActive || this.peggingActive) {
 					this.straponActive = false;
@@ -407,14 +409,24 @@ export default {
 					this.playerHealth = this.playerHealth - 1;
 				}
 			}
+			if(this.playerModifications.latexWin){
+				this.roundOutcome = "Latex Set Assembled. Player Wins";
+				this.enemyHealth = 0;
+			}
+			if(this.enemyModifications.latexWin){
+				this.roundOutcome = "Latex Set Assembled. Enemy Wins";
+				this.playerHealth = 0;
+			}
 			if (this.enemyPower == this.playerPower) {
 				this.roundOutcome = 'Round ends in a tie'
 			}
 			if (this.enemyHealth <= 0) {
+				this.enemyHealth = 0;
 				this.matchWon = true;
 				this.$store.dispatch('gainMoney', this.prizeMoney)
 			}
 			if (this.playerHealth <= 0) {
+				this.playerHealth = 0;
 				this.gameOver = true;
 			}
 			this.cardsPlayed = true;
@@ -587,7 +599,24 @@ export default {
 				this.playerModifications.forcedBi += 1;
 			}
 			if (cardArray.includes("humanChair")) {
-				this.playerModifications.humanChair += 2
+				this.playerModifications.humanChair += 2;
+			}
+			if(cardArray.includes("latexSet")){
+				let latexArr = ["latexBoots", "latexGloves", "latexClothes"];
+				let cardNames = this.playerHand.map(card => card.name);
+				if(latexArr.every(r => cardNames.includes(r))){
+					this.playerModifications.latexWin = true
+				}
+			}
+			if(cardArray.includes("latexDoll")){
+				if(this.playerDeck.filter(card => card.name.includes("latex")).length > 0){
+					let index = this.playerDeck.findIndex(card => card.name.includes('latex'));
+					this.playerHand.push(this.playerDeck[index]);
+					this.playerDeck.splice(index, 1);
+				}
+			}
+			if(cardArray.includes("secondSkin")){
+				this.playerPower += ((this.playerDeck.filter(card => card.name.includes("latex")).length + this.playerHand.filter(card => card.name.includes("latex")).length + this.playerDiscardPile.filter(card => card.name.includes("latex")).length) * 2);
 			}
 		},
 		checkEnemyModifications() {
@@ -742,6 +771,23 @@ export default {
 			}
 			if (cardArray.includes("humanChair")) {
 				this.enemyModifications.humanChair += 2
+			}
+			if(cardArray.includes("latexSet")){
+				let latexArr = ["latexBoots", "latexGloves", "latexClothes"];
+				let cardNames = this.enemyHand.map(card => card.name);
+				if(latexArr.every(r => cardNames.includes(r))){
+					this.enemyModifications.latexWin = true
+				}
+			}
+			if(cardArray.includes("latexDoll")){
+				if(this.enemyDeck.filter(card => card.name.includes("latex")).length > 0){
+					let index = this.enemyDeck.findIndex(card => card.name.includes('latex'));
+					this.enemyHand.push(this.enemyDeck[index]);
+					this.enemyDeck.splice(index, 1);
+				}
+			}
+			if(cardArray.includes("secondSkin")){
+				this.enemyPower += ((this.enemyDeck.filter(card => card.name.includes("latex")).length + this.enemyHand.filter(card => card.name.includes("latex")).length + this.enemyDiscardPile.filter(card => card.name.includes("latex")).length) * 2);
 			}
 		},
 		ascendStage() {
