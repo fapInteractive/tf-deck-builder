@@ -10,8 +10,8 @@ export default new Vuex.Store({
     stage: 1,
     enemyType: '',
     currentCaracter: null,
-    playerBaseHealth: 8,
-    playerHealth: 8,
+    playerBaseHealth: 50,
+    playerHealth: 50,
     playerBaseEnergy: 3,
     cardRemovalCount: 0,
     playerPerks: [],
@@ -1325,6 +1325,9 @@ export default new Vuex.Store({
     },
     cheatPoints(state){
         state.upgradePoints += 100
+    },
+    changePlayerHealth(state, payload){
+        state.playerHealth += payload
     }
   },
   actions: {
@@ -1425,6 +1428,9 @@ export default new Vuex.Store({
     },
     cheatPoints(context){
         context.commit('cheatPoints')
+    },
+    changePlayerHealth(context, payload) {
+        context.commit('changePlayerHealth', payload)
     }
   },
   modules: {

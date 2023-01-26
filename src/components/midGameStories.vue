@@ -150,12 +150,12 @@
         methods: {
             nextStep(){
                 if(this.step == 2 && this.floor <= 4){
-                    this.$emit('changeComponent', 'dungeonRoom')
+                    this.$emit('changeComponent', 'mapScreen')
                 } else if (this.step == 1 && this.floor == 5){
                     this.enemyImage = require('@/assets/bosses/004/002/001.png')
                 }
                 if(this.step == 3){
-                    this.$emit('changeComponent', 'dungeonRoom')
+                    this.$emit('changeComponent', 'mapScreen')
                 }
                 this.step++
             }

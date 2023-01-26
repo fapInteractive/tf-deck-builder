@@ -41,6 +41,7 @@
     <mainHub v-if="activeComponent == 'mainHub'" v-on:changeComponent="changeComponent"></mainHub>
     <store v-if="activeComponent == 'store'" v-on:changeComponent="changeComponent"></store>
     <cardSettings v-if="activeComponent == 'cardSettings'" v-on:changeComponent="changeComponent"></cardSettings>
+    <mapScreen v-if="activeComponent == 'mapScreen'" v-on:changeComponent="changeComponent"></mapScreen>
   </v-app>
 </template>
 
@@ -57,6 +58,7 @@
   import mainHub from './components/mainHub.vue'
   import store from './components/store.vue'
   import cardSettings from './components/cardSettings.vue'
+  import mapScreen from './components/mapScreen.vue'
   export default {
     components: {
     story,
@@ -70,6 +72,7 @@
     mainHub,
     store,
     cardSettings,
+    mapScreen,
 },
     data: () => ({
       activeComponent: "home"

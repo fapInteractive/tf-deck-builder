@@ -5,12 +5,118 @@
 				<v-row class="justify-center">
 					<v-col cols="12">
 						<v-row class="justify-center">
-							<v-img :src="require(`@/assets/playerCharacters/001/00${playerStage}.png`)" contain></v-img>
+							<v-img :src="require(`@/assets/playerCharacters/001/00${playerStage}.png`)" contain height="50vh"></v-img>
 							<v-col cols="12" class="text-center">
 								<h3 style="color: green;">
 									Remaining HP: {{playerHealth}}
 								</h3>
 							</v-col>
+						</v-row>
+						<v-row class="justify-right">
+							<v-tooltip top>
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/cardsPlayed.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Number of cards played: {{ playerModifications.abundance }}</span>
+							</v-tooltip>
+							<v-tooltip top>
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/lastCardPlayedValue.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of last card played: {{ playerModifications.cosplay }}</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.assWorship">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/assWorship.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 1</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.bubbleButts">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/bubbleButts.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.commando">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/commando.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced to 0</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.cumCleanup">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/cumCleanup.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.forcedBi">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/forcedBi.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced to 0</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.freeUse">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/freeUse.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Next {{ playerModifications.freeUse }} cards reduced by 2 power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.humanChair">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/humanChair.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards increased by 1</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.ready">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/ready.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards increased by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.reflecting">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/reflecting.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn doubles in power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.restrained">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/restrained.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn reduced to 0 power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.thong">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/thong.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn costs 0 energy</span>
+							</v-tooltip>
 						</v-row>
 					</v-col>
 				</v-row>
@@ -143,13 +249,120 @@
 				<v-row class="justify-center">
 					<v-col cols="12">
 						<v-row class="justify-center">
-							<v-img :src="enemyImages[enemyStage]" contain></v-img>
+							<v-img :src="enemyImages[enemyStage]" contain height="50vh"></v-img>
 							<v-col cols="12" class="text-center">
 								<h3 style="color: green;">
 									Remaining HP: {{enemyHealth}}
 								</h3>
 							</v-col>
 						</v-row>
+						<v-row class="justify-right">
+							<v-tooltip top>
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/cardsPlayed.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Number of cards played: {{ enemyModifications.abundance }}</span>
+							</v-tooltip>
+							<v-tooltip top>
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/lastCardPlayedValue.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of last card played: {{ enemyModifications.cosplay }}</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.assWorship">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/assWorship.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 1</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.bubbleButts">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/bubbleButts.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.commando">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/commando.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced to 0</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.cumCleanup">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/cumCleanup.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.forcedBi">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/forcedBi.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards reduced to 0</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.freeUse">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/freeUse.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Next {{ enemyModifications.freeUse }} cards reduced by 2 power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.humanChair">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/humanChair.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards increased by 1</span>
+							</v-tooltip>
+							<v-tooltip top v-if="playerModifications.ready">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/ready.png')"></v-img>
+									</v-col>
+								</template>
+								<span>Power of all cards increased by 2</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.reflecting">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/reflecting.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn doubles in power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.restrained">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/restrained.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn reduced to 0 power</span>
+							</v-tooltip>
+							<v-tooltip top v-if="enemyModifications.thong">
+								<template v-slot:activator="{on, attrs}">
+									<v-col cols="3" v-on="on" v-bind="attrs">
+										<v-img :src="require('@/assets/icons/modifications/thong.png')"></v-img>
+									</v-col>
+								</template>
+								<span>First card played this turn costs 0 energy</span>
+							</v-tooltip>
+						</v-row>
+
 					</v-col>
 				</v-row>
 			</v-col>
@@ -160,8 +373,6 @@
 <script>
 export default {
 	data: () => ({
-		playerBaseHealth: 8,
-		playerHealth: 8,
 		enemyBaseHealth: 4,
 		enemyHealth: 4,
 		playerEnergy: 0,
@@ -398,15 +609,17 @@ export default {
 					this.suckTheStrapActive = false;
 					this.peggingActive = false;
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
-					this.playerHealth = this.playerHealth - 1;
+					this.$store.dispatch('changePlayerHealth', -1)
+					// this.playerHealth = this.playerHealth - 1;
 				}
 				if (this.playerBimboficationActive) {
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power, player blocks'
 					this.playerBimboficationActive = false;
-					this.playerHealth = this.playerHealth
+					// this.playerHealth = this.playerHealth
 				} else {
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
-					this.playerHealth = this.playerHealth - 1;
+					this.$store.dispatch('changePlayerHealth', -1)
+					// this.playerHealth = this.playerHealth - 1;
 				}
 			}
 			if(this.playerModifications.latexWin){
@@ -664,7 +877,7 @@ export default {
 				}
 			}
 			if (this.enemyModifications.ready > 0) {
-				this.enemyPower += (this.enemyPlayedCards.length * 2)
+				this.playerPower += (this.playerPlayedCards.length * 2)
 				this.enemyModifications.ready = -1
 			}
 			if (this.enemyModifications.reflecting > 0) {
@@ -857,6 +1070,12 @@ export default {
 		prizeMoney() {
 			return Math.floor((75 + ((Math.floor(Math.random() * 25) + 1) * (Math.random() < 0.5 ? -1 : 1))) * (1 + (0.5 * this.$store.state.playerPerks.filter(perk => perk.name == "Cash").length)))
 		},
+		playerBaseHealth(){
+			return this.$store.state.playerBaseHealth
+		},
+		playerHealth(){
+			return this.$store.state.playerHealth
+		},
 		battlefieldBG() {
 			if (this.$store.state.stage == 8) {
 				if (this.$store.state.floor == 1) {
@@ -920,7 +1139,7 @@ export default {
 			this.enemyImages = this.$store.state.finalBosses[3].enemyPictures
 		}
 		this.playerEnergy = this.$store.state.playerBaseEnergy + ((this.$store.state.playerPerks.filter(perk => perk.name == "Implants").length) * 2);
-		this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
+		// this.playerHealth = this.$store.state.playerBaseHealth + ((this.$store.state.playerPerks.filter(perk => perk.name == "Thick Thighs").length) * 2);
 		this.enemyBaseHealth = 4 + (this.$store.state.floor - 1) + this.$store.state.difficulty;
 		this.enemyHealth = 4 + (this.$store.state.floor - 1) + this.$store.state.difficulty;
 	}
@@ -934,14 +1153,14 @@ export default {
   padding-bottom: 10px !important;
 }
 .game-card {
-  width: 8vw;
+  width: 6vw;
   transition:.4s ease;
   position: relative;
   bottom:0px;
 }
 
 .game-card:hover {
-  width: 10vw;
+  width: 9vw;
 }
 
 .player-cards{
