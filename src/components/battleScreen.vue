@@ -725,6 +725,8 @@ export default {
 		checkPlayerCardEffects(cardArray) {
 			if (cardArray.includes("abundance")) {
 				this.playerPower += this.playerModifications.abundance;
+				this.playerModifications.cosplay = this.playerModifications.abundance;
+				this.playerModifications.girlfriends = this.playerModifications.abundance;
 			}
 			if (cardArray.includes("bimbofication")) {
 				this.playerModifications.bimbofiction += 1
@@ -778,6 +780,8 @@ export default {
 			}
 			if (cardArray.includes("groupUse")) {
 				this.playerPower += (this.playerModifications.groupUse * 2)
+				this.playerModifications.cosplay = this.playerModifications.groupUse * 2;
+				this.playerModifications.girlfriends = this.playerModifications.groupUse * 2;
 			}
 			if (cardArray.includes("ready")) {
 				this.playerModifications.ready += 1
