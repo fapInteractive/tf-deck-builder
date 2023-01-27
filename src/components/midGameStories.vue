@@ -6,8 +6,40 @@
             </v-col>
         </v-row>
         <v-row class="justify-space-around">
-            <v-col cols="3">
-                <v-img :src="playerImage" height='50%' contain></v-img>
+            <v-col cols="12" class="text-center" v-if="floor == 5 && step == 3">
+                        <v-row class="'jsutify-space-around'">
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/001/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/002/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/003/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/004/001/001.png')"></v-img>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="12" class="text-center" v-if="floor == 5 && step == 4">
+                        <v-row class="'jsutify-space-around'">
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/001/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/002/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/003/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="75%" :src="require('@/assets/bosses/004/002/001.png')"></v-img>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+            <v-col cols="3" v-if="!(floor == 5 && !(step == 1 || step == 2 || step == 5))">
+                <v-img :src="playerImage" height='75%' contain></v-img>
             </v-col>
             <v-col cols="6" v-if="floor == 2"> 
                 <v-row class="'justify-center'">
@@ -117,11 +149,43 @@
                         </div>
                     </v-col>
                     <v-col cols="12" class="text-center" v-if="step == 3">
+                        <v-row class="'jsutify-space-around'">
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/001/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/002/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/003/001/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/004/001/001.png')"></v-img>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="12" class="text-center" v-if="step == 4">
+                        <v-row class="'jsutify-space-around'">
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/001/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/002/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/003/002/001.png')"></v-img>
+                            </v-col>
+                            <v-col cols="3" class="text-center">
+                                <v-img contain height="100%" :src="require('@/assets/bosses/004/002/001.png')"></v-img>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="12" class="text-center" v-if="step == 5">
                         <div class="triangle-border left">
                             Wha...what are you?
                         </div>
                         <div class="triangle-border right">
-                            We are inhabitants of the planet Ulrilia. We have come here to convert your race to our superior form. A form that does not need men to populate.
+                            We are inhabitants of the planet Ulrilia. We have come here to convert your race to our superior form. However, we have found that we need not keep all of your race man, so we have decided it would be more human to transform you into our women than to kill you.
                         </div>
                         <div class="triangle-border right">
                             But we are not heartless. We give each of our converts a fighting chance. I will give you credit, you are the first of your race to force us to use our true form in a long time.
@@ -132,8 +196,8 @@
                     </v-col>
                 </v-row>           
             </v-col>
-            <v-col cols="3">
-                <v-img :src="enemyImage" height='50%' contain></v-img>
+            <v-col cols="3" v-if="!(floor == 5 && !(step == 1 || step == 2 || step == 5))">
+                <v-img :src="enemyImage" height='75%' contain></v-img>
             </v-col>
         </v-row>
     </v-container>
@@ -151,10 +215,13 @@
             nextStep(){
                 if(this.step == 2 && this.floor <= 4){
                     this.$emit('changeComponent', 'mapScreen')
-                } else if (this.step == 1 && this.floor == 5){
+                } else if (this.step == 2 && this.floor == 5){
                     this.enemyImage = require('@/assets/bosses/004/002/001.png')
                 }
-                if(this.step == 3){
+                if(this.step == 3 && this.floor != 5){
+                    this.$emit('changeComponent', 'mapScreen')
+                }
+                if(this.step == 5 && this.floor == 5){
                     this.$emit('changeComponent', 'mapScreen')
                 }
                 this.step++

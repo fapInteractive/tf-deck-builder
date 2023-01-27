@@ -31,7 +31,7 @@
                 </v-row>           
             </v-col>
             <v-col cols="3" v-if="step == 0">
-                <v-img :src="enemyImage" height='50%' contain></v-img>
+                <v-img :src="enemyImage" height='75%' contain></v-img>
             </v-col>
             <v-col cols="12" class="text-center" v-if="step == 1">
                 <h1>A few months later...</h1>

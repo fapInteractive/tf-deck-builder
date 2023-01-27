@@ -19,6 +19,11 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col cols="1">
+            <v-img :src="require('@/assets/icons/UIIcons/heart.png')" contain height="6vh" class="text-center">
+              <h1 class="deck-text">{{health}}</h1>
+            </v-img>
+          </v-col>
+          <v-col cols="1">
             <v-img :src="require('@/assets/icons/UIIcons/coin.png')" contain height="6vh" class="text-center">
               <h1 class="deck-text">{{coin}}</h1>
             </v-img>
@@ -90,6 +95,9 @@
       },
       coin: function() {
         return this.$store.state.coin;
+      },
+      health: function(){
+        return this.$store.state.playerHealth;
       },
       perks: function() {
         let availablePerks = [

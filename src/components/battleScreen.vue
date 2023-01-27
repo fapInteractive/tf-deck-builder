@@ -731,6 +731,7 @@ export default {
 			if (cardArray.includes("bimbofication")) {
 				this.playerModifications.bimbofiction += 1
 				this.playerBimboficationActive = true;
+				this.$store.dispatch('changePlayerBaseHealth', 1)
 			}
 			if (cardArray.includes("bubbleButts")) {
 				if (this.playerModifications.bubbleButts == 0) {
@@ -1004,7 +1005,7 @@ export default {
 			}
 		},
 		ascendStage() {
-			if (this.$store.state.enemyType == "enemy") {
+			if (this.$store.state.enemyType == "enemy" || this.$store.state.enemyType == "eliteEnemy") {
 				this.$emit('completeBattle');
 			} else if (this.$store.state.enemyType == "boss") {
 				this.$emit('completeBossBattle');
@@ -1107,7 +1108,7 @@ export default {
 			if (this.$store.state.floor == 4) {
 				baseEnergyAddition += 4
 			}
-			if (this.$store.state.enemyType == 'boss' || this.$store.state.enemyType == 'eliteBoss') {
+			if (this.$store.state.enemyType == 'boss' || this.$store.state.enemyType == 'eliteBoss' || this.$store.state.enemyType == 'eliteEnemy') {
 				baseEnergyAddition += 1
 			}
 			
@@ -1124,6 +1125,10 @@ export default {
 		this.drawEnemyHand();
 		let availableEnemies = []
 		if (this.$store.state.enemyType == 'enemy') {
+			availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
+			this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random() * availableEnemies.enemyPictures.length)]
+		}
+		if (this.$store.state.enemyType == 'eliteEnemy') {
 			availableEnemies = this.$store.state.enemies.find(enemy => enemy.floor == this.$store.state.floor)
 			this.enemyImages = availableEnemies.enemyPictures[Math.floor(Math.random() * availableEnemies.enemyPictures.length)]
 		}

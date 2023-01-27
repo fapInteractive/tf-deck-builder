@@ -2,16 +2,16 @@
     <v-container>
         <v-row class="justify-center">
             <v-col cols="12" class="text-center">
-                <h1>SELECT A PATH</h1>
+                <h1>SELECT AN ENCOUNTER</h1>
             </v-col>
         </v-row>
         <v-row class="justify-center">
             <v-col cols="4">   
             </v-col>
             <v-col cols="4" class="text-center">
-                <v-row class="justify-space-around" v-for="(row, i) in mapArr" :key="i">
-                    <v-col cols="4" class="text-center red-background" v-for="(col, j) in row" :key="j" :class="[((hoveredCol == j && pathSelected == null) || pathSelected == j) ? 'on-hover' : '', (pathSelected == j && currentRowIndex == i) ? 'current-stage' : '']" @click="pathSelected == null ? pathSelected = j : ''" @mouseover="hoveredCol = j" @mouseleave="hoveredCol = null">
-                        <v-img :src="col.img" height="10vh" contain></v-img>
+                <v-row class="justify-space-around" :class="currentRowIndex == i ? 'current-row' : 'not-current-row'" v-for="(row, i) in mapArr" :key="i">
+                    <v-col cols="4" class="text-center" v-for="(col, j) in row" :key="j">
+                        <v-img :src="col.img" height="10vh" contain @click="currentRowIndex == i ? checkEncounterType(col.type) : ''"></v-img>
                     </v-col>
                 </v-row>
             </v-col>
@@ -19,27 +19,6 @@
                 <v-img :src="require('@/assets/icons/doorIcons/legend.png')" height="50vh" contain></v-img>
             </v-col>
         </v-row>
-        <v-btn
-          color="green"
-          dark
-          fixed
-          bottom
-          right
-          fab
-          x-large
-          v-if="pathSelected != null"
-          @click="checkEncounterType"
-        >
-            <v-img contain :src='mapArr[currentRowIndex][pathSelected].img' height="5vh">
-                <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                >
-                    <p class="button-text">BEGIN</p>
-                </v-row>
-            </v-img>
-        </v-btn>
         <v-dialog v-model="dialog" fullscreen hide-overlay persistent style="overflow: hidden !important" transition="dialog-bottom-transition">
             <v-card>
               <v-toolbar dark color="#2c2c2c">
@@ -70,6 +49,7 @@
               <merchantRoom v-if="activeComponent == 'merchantRoom'" v-on:leaveShop="leaveShop"></merchantRoom>
               <battleScreen v-if="activeComponent == 'battleScreen'" v-on:completeBattle="completeBattle" v-on:completeBossBattle="completeBossBattle" v-on:completeRun="completeRun" v-on:gameOver="gameOver"></battleScreen>
               <chestRoom v-if="activeComponent == 'chestRoom'" v-on:leaveShop="leaveShop"></chestRoom>
+              <restSite v-if="activeComponent == 'restSite'" v-on:leaveRestSite="leaveRestSite"></restSite>
             </v-card>
         </v-dialog>
     </v-container>
@@ -79,19 +59,18 @@
 import merchantRoom from './merchantRoom.vue'
 import battleScreen from './battleScreen.vue'
 import chestRoom from './chestRoom.vue'
+import restSite from './restSite.vue'
 
 export default {
     components: {
 		merchantRoom,
 		battleScreen,
 		chestRoom,
+		restSite,
 	},
 	data: () => ({
 		mapArr: [],
 		currentRowIndex: 0,
-		currentColIndex: 0,
-		hoveredCol: null,
-		pathSelected: null,
 		dialog: false,
 		activeComponent: "none",
 	}),
@@ -131,6 +110,11 @@ export default {
 			this.dialog = false;
             this.currentRowIndex++
 		},
+        leaveRestSite() {
+			this.activeComponent = null;
+			this.dialog = false;
+            this.currentRowIndex++
+		},
 		completeBattle() {
 			this.activeComponent = null;
 			this.dialog = false;
@@ -139,10 +123,10 @@ export default {
 		completeBossBattle() {
 			this.activeComponent = null;
 			this.dialog = false;
-            this.currentRowIndex++
+            this.$store.dispatch('ascendFloor');
+    		this.$emit('changeComponent', 'midGameStories');
 		},
-		checkEncounterType() {
-			let encounterType = this.mapArr[this.currentRowIndex][this.currentColIndex].type;
+		checkEncounterType(encounterType) {
 			switch (encounterType) {
 				case 'enemy':
 					this.$store.dispatch('setEnemyType', 'enemy')
@@ -152,7 +136,7 @@ export default {
 					break;
                 case 'eliteEnemy':
 					this.$store.dispatch('setEnemyType', 'eliteEnemy')
-					this.openBattleScreen('enemy');
+					this.openBattleScreen('eliteEnemy');
 					this.activeComponent = 'battleScreen';
 					this.dialog = true;
 					break;
@@ -162,12 +146,16 @@ export default {
 					this.activeComponent = 'battleScreen';
 					this.dialog = true;
 					break;
-				case 'merchantRoom':
+				case 'merchant':
 					this.activeComponent = 'merchantRoom';
 					this.dialog = true;
 					break;
 				case 'chestRoom':
 					this.activeComponent = 'chestRoom';
+					this.dialog = true;
+					break;
+                case 'restSite':
+					this.activeComponent = 'restSite';
 					this.dialog = true;
 					break;
 				case 'eliteBoss':
@@ -180,134 +168,188 @@ export default {
 					return;
 			}
 		},
+        getEncounter(encounters) {
+            let i, pickedEncounter,
+                    randomNr = Math.random(),
+                    threshold = 0;
+
+            for (i = 0; i < encounters.length; i++) {
+                if (encounters[i].probability === '*') {
+                    continue;
+                }
+
+                threshold += encounters[i].probability;
+                if (threshold > randomNr) {
+                        pickedEncounter = encounters[i];
+                        break;
+                }
+
+                if (!pickedEncounter) {
+                    //nothing found based on probability value, so pick element marked with wildcard
+                    pickedEncounter = encounters.find((encounter) => encounter.probability === '*');
+                }
+            }
+            console.log(pickedEncounter)
+
+            return pickedEncounter;
+        },
+        buildMap(){
+            let encounterTypes = [
+                {
+                    type: "enemy",
+                    img: require("@/assets/icons/doorIcons/enemy.png"),
+                    probability: 1
+                },
+            ]
+            let encounterOne = [
+                {
+                    type: "enemy",
+                    img: require("@/assets/icons/doorIcons/enemy.png")
+                }
+            ]
+            this.mapArr.push(encounterOne);
+            for (let i = 0; i < 12; i++) {
+                let rowArray = new Array;
+                let numberOfEncounters = Math.floor(Math.random() * 3) + 1;
+                if(i == 5){
+                    encounterTypes = [
+                        {
+                            type: "enemy",
+                            img: require("@/assets/icons/doorIcons/enemy.png"),
+                            probability: 0.7
+                        },
+                        {
+                            type: "merchant",
+                            img: require("@/assets/icons/doorIcons/merchant.png"),
+                            probability: 0.2
+                        },
+                        {
+                            type: "eliteEnemy",
+                            img: require("@/assets/icons/doorIcons/eliteEnemy.png"),
+                            probability: "*"
+                        },
+                    ]
+                }
+                if(i == 6){
+                    encounterTypes = [
+                        {
+                            type: "enemy",
+                            img: require("@/assets/icons/doorIcons/enemy.png"),
+                            probability: 0.5
+                        },
+                        {
+                            type: "merchant",
+                            img: require("@/assets/icons/doorIcons/merchant.png"),
+                            probability: 0.1
+                        },
+                        {
+                            type: "eliteEnemy",
+                            img: require("@/assets/icons/doorIcons/eliteEnemy.png"),
+                            probability: "*"
+                        },
+                        {
+                            type: "restSite",
+                            img: require("@/assets/icons/doorIcons/restSite.png"),
+                            probability: 0.2
+                        }
+                    ]
+                }
+                if(i == 10){
+                    encounterTypes = [
+                        {
+                            type: "enemy",
+                            img: require("@/assets/icons/doorIcons/enemy.png"),
+                            probability: 0.4
+                        },
+                        {
+                            type: "merchant",
+                            img: require("@/assets/icons/doorIcons/merchant.png"),
+                            probability: 0.1
+                        },
+                        {
+                            type: "eliteEnemy",
+                            img: require("@/assets/icons/doorIcons/eliteEnemy.png"),
+                            probability: "*"
+                        },
+                        {
+                            type: "restSite",
+                            img: require("@/assets/icons/doorIcons/restSite.png"),
+                            probability: 0.2
+                        }
+                    ]
+                }
+                for (let j = 0; j < numberOfEncounters; j++) {
+                    let encounter = this.getEncounter(encounterTypes);
+                    rowArray.push(encounter);
+                }
+                this.mapArr.push(rowArray);
+            }
+            let encounterTwo = [
+                {
+                    type: "restSite",
+                    img: require("@/assets/icons/doorIcons/restSite.png")
+                }
+            ]
+            this.mapArr.push(encounterTwo);
+            let encounterThree = [
+                {
+                    type: "boss",
+                    img: require("@/assets/icons/doorIcons/boss.png")
+                }
+            ]
+            this.mapArr.push(encounterThree);
+            //Ensure that there is at least one merchant, rest site, and elite enemy per stage
+            let merchantCount = 0;
+            for (let i = 0; i < this.mapArr.length; i++) {
+                const row = this.mapArr[i];
+                for (let j = 0; j < row.length; j++) {
+                    const encounter = row[j];
+                    if(encounter.type == 'merchant'){
+                        merchantCount++
+                    }
+                }
+            }
+            if(merchantCount == 0){
+                this.mapArr[4][0] =
+                    {
+                        type: "merchant",
+                        img: require("@/assets/icons/doorIcons/merchant.png"),
+                        probability: 0.1
+                    }
+            }
+        }
 	},
 	mounted: function() {
-		let encounterTypes = [{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "enemy",
-				img: require("@/assets/icons/doorIcons/enemy.png")
-			},
-			{
-				type: "merchant",
-				img: require("@/assets/icons/doorIcons/merchant.png")
-			},
-			{
-				type: "merchant",
-				img: require("@/assets/icons/doorIcons/merchant.png")
-			},
-			{
-				type: "restSite",
-				img: require("@/assets/icons/doorIcons/restSite.png")
-			},
-		]
-		let numberOfEncounters = Math.floor(Math.random() * 3) + 1;
-		for (let i = 0; i < 15; i++) {
-			//Create an empty array to hold encounters
-			let encounters = new Array;
-			//Get between 1 and 3 encounters
-			for (let j = 0; j < numberOfEncounters; j++) {
-				if (i <= 2) {
-					//Make sure that only enemies are the first three encounters
-					let onlyEncounter = encounterTypes[0];
-					encounters.push(onlyEncounter)
-				} else {
-					//prevent boss encounters prior to level 10
-					if (i == 10) {
-						encounterTypes.push({
-							type: "eliteEnemy",
-							img: require("@/assets/icons/doorIcons/eliteEnemy.png")
-						}, )
-					}
-					//Limit chests to level 6
-					else if (i == 6) {
-						encounters.push({
-							type: "chest",
-							img: require("@/assets/icons/doorIcons/chest.png")
-						})
-					}
-					//Only allow merchants at level 12
-					else if (i == 12) {
-						encounters.push({
-							type: "merchant",
-							img: require("@/assets/icons/doorIcons/merchant.png")
-						}, )
-					}
-					//Make sure a rest site is at level 13
-					else if (i == 13) {
-						encounters.push({
-							type: "restSite",
-							img: require("@/assets/icons/doorIcons/restSite.png")
-						}, )
-					}
-					//Make sure the boss is the final encounter
-					else if (i == 14) {
-						encounters.push({
-							type: "boss",
-							img: require("@/assets/icons/doorIcons/boss.png")
-						})
-					} else {
-						let encounterType = encounterTypes[Math.floor(Math.random() * encounterTypes.length)];
-						encounters.push(encounterType);
-					}
-				}
-			}
-			this.mapArr.push(encounters);
-		}
+        if(this.$store.state.floor != 5){
+            this.buildMap();
+        } else {
+            this.mapArr = [
+                [{
+                    type: 'boss',
+                    img: require("@/assets/icons/doorIcons/boss.png")
+                }],
+                [{
+                    type: 'boss',
+                    img: require("@/assets/icons/doorIcons/boss.png")
+                }],
+                [{
+                    type: 'boss',
+                    img: require("@/assets/icons/doorIcons/boss.png")
+                }],
+                [{
+                    type: 'merchant',
+                    img: require("@/assets/icons/doorIcons/merchant.png")
+                }],
+                [{
+                    type: 'restSite',
+                    img: require("@/assets/icons/doorIcons/restSite.png")
+                }],
+                [{
+                    type: 'eliteBoss',
+                    img: require("@/assets/icons/doorIcons/eliteBoss.png")
+                }],
+            ]
+        }
 	},
     computed: {
 		floor: function() {
@@ -368,26 +410,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    .red-background {
-        filter: grayscale(0);
-        background: linear-gradient(90deg, 
-        rgba(0,0,0,0) calc(50% - 5px),
-        rgb(255, 0, 0) calc(50%),
-        rgba(0,0,0,0) calc(50% + 5px)
-        );
+    .current-row{
+        -webkit-box-shadow:inset 0px 0px 6px 2px #f00;
+        -moz-box-shadow:inset 0px 0px 6px 2px #f00;
+        box-shadow:inset 0px 0px 6px 2px #f00;
     }
-    .red-background:not(.on-hover) {
+
+    .not-current-row{
         filter: grayscale(1);
-        background: linear-gradient(90deg, 
-        rgba(0,0,0,0) calc(50% - 5px),
-        rgb(255, 0, 0) calc(50%),
-        rgba(0,0,0,0) calc(50% + 5px)
-        );
-    }
-    .current-stage {
-        box-shadow: inset -1px 0 0 blue, inset 0 -1px 0 blue, inset 1px 0 0 blue, inset 0 1px 0 blue;
-    }
-    .button-text {
-        text-shadow: 5px 5px 5px #000;
     }
 </style>

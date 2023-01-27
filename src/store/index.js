@@ -1265,7 +1265,9 @@ export default new Vuex.Store({
     removeCard(state, payload) {
         state.coin -= payload.cost;
         state.deck = state.deck.filter(card => card.id != payload.id)
-        state.cardRemovalCount += 1;
+        if(payload.cost != 0){
+            state.cardRemovalCount += 1;
+        }
     },
     gameOver(state, payload){
         state.coin = payload.coin
@@ -1328,6 +1330,9 @@ export default new Vuex.Store({
     },
     changePlayerHealth(state, payload){
         state.playerHealth += payload
+    },
+    changePlayerBaseHealth(state, payload){
+        state.playerBaseHealth += paylaod
     }
   },
   actions: {
@@ -1396,8 +1401,8 @@ export default new Vuex.Store({
             floor: 1,
             stage: 1,
             currentCaracter: null,
-            playerBaseHealth: 8,
-            playerHealth: 8,
+            playerBaseHealth: 50,
+            playerHealth: 50,
             playerBaseEnergy: 3,
             cardRemovalCount: 0,
             playerPerks: [],
@@ -1431,6 +1436,9 @@ export default new Vuex.Store({
     },
     changePlayerHealth(context, payload) {
         context.commit('changePlayerHealth', payload)
+    },
+    changePlayerBaseHealth(contex, payload) {
+        context.commit('changePlayerBaseHealth', payload)
     }
   },
   modules: {
