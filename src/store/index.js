@@ -1332,7 +1332,7 @@ export default new Vuex.Store({
         state.playerHealth += payload
     },
     changePlayerBaseHealth(state, payload){
-        state.playerBaseHealth += paylaod
+        state.playerBaseHealth += payload
     }
   },
   actions: {
@@ -1437,7 +1437,7 @@ export default new Vuex.Store({
     changePlayerHealth(context, payload) {
         context.commit('changePlayerHealth', payload)
     },
-    changePlayerBaseHealth(contex, payload) {
+    changePlayerBaseHealth(context, payload) {
         context.commit('changePlayerBaseHealth', payload)
     }
   },

@@ -610,16 +610,12 @@ export default {
 					this.peggingActive = false;
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
 					this.$store.dispatch('changePlayerHealth', -1)
-					// this.playerHealth = this.playerHealth - 1;
 				}
 				if (this.playerBimboficationActive) {
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power, player blocks'
-					this.playerBimboficationActive = false;
-					// this.playerHealth = this.playerHealth
 				} else {
 					this.roundOutcome = 'Enemy wins round with ' + this.enemyPower + ' power'
 					this.$store.dispatch('changePlayerHealth', -1)
-					// this.playerHealth = this.playerHealth - 1;
 				}
 			}
 			if(this.playerModifications.latexWin){
@@ -642,6 +638,8 @@ export default {
 				this.playerHealth = 0;
 				this.gameOver = true;
 			}
+			this.playerBimboficationActive = false;
+			this.enemyBimboficationActive = false;
 			this.cardsPlayed = true;
 		},
 		completeTurn() {

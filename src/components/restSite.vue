@@ -4,11 +4,14 @@
             <v-col cols="12" class="text-center">
                 <h1>You find a place you cane take a breath and regain yourself</h1>
             </v-col>
+            <v-col cols="12" class="text-center">
+                <h3>Current Health: {{ playerHealth }}/{{ playerBaseHealth }}</h3>
+            </v-col>
             <v-col cols="4" class="text-center">
                 <v-img contain height="15vh" :src="require('@/assets/icons/restSite/rest.png')"></v-img>
                 <v-btn @click="rest">Rest</v-btn>
                 <br>
-                <h3>Restores 25% of max HP</h3>
+                <h3>Restores 25% of max HP ({{ ammountToHeal }})</h3>
             </v-col>
             <v-col cols="4" class="text-center">
                 <v-img contain height="15vh" :src="require('@/assets/icons/restSite/remove.png')"></v-img>
@@ -48,7 +51,7 @@
                         <v-row>
                             <v-col cols="3" class="text-center" v-for="card in deck" :key="card.id" @click="cardToDuplicate = card">
                                 <v-img :src="card[card.activeImage]" contain class="d-flex align-center">
-                                    <v-btn v-if="cardToDuplicate && cardToDuplicate.id == card.id" color="green" @click="removeCard(card)">Duplicate card</v-btn>
+                                    <v-btn v-if="cardToDuplicate && cardToDuplicate.id == card.id" color="green" @click="duplicate(card)">Duplicate card</v-btn>
                                 </v-img>
                             </v-col>
                         </v-row>
@@ -97,6 +100,15 @@
         computed: {
             deck: function() {
                 return this.$store.state.deck
+            },
+            ammountToHeal(){
+                return Math.floor(this.$store.state.playerBaseHealth / 4);
+            },
+            playerBaseHealth(){
+                return this.$store.state.playerBaseHealth
+            },
+            playerHealth(){
+                return this.$store.state.playerHealth
             }
         }
     }

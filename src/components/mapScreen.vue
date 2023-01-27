@@ -323,9 +323,9 @@ export default {
         }
 	},
 	mounted: function() {
-        if(this.$store.state.floor != 5){
+        if(this.$store.state.floor < 4){
             this.buildMap();
-        } else {
+        } else if(this.$store.state.floor == 5) {
             this.mapArr = [
                 [{
                     type: 'boss',
@@ -349,6 +349,21 @@ export default {
                 }],
                 [{
                     type: 'eliteBoss',
+                    img: require("@/assets/icons/doorIcons/eliteBoss.png")
+                }],
+            ]
+        } else {
+            this.mapArr = [
+                [{
+                    type: 'merchant',
+                    img: require("@/assets/icons/doorIcons/merchant.png")
+                }],
+                [{
+                    type: 'restSite',
+                    img: require("@/assets/icons/doorIcons/restSite.png")
+                }],
+                [{
+                    type: 'boss',
                     img: require("@/assets/icons/doorIcons/eliteBoss.png")
                 }],
             ]
