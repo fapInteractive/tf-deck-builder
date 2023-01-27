@@ -661,6 +661,7 @@ export default {
 		},
 		checkPlayerModifications() {
 			this.playerModifications.abundance += this.playerPlayedCards.length;
+			this.playerModifications.groupUse += this.playerPlayedCards.length;
 			if (this.playerPlayedCards.length > 0) {
 				if (this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'cosplay') {
 					this.playerModifications.cosplay = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
@@ -668,8 +669,15 @@ export default {
 				if (this.playerPlayedCards[this.playerPlayedCards.length - 1].name != 'girlfriends') {
 					this.playerModifications.girlfriends = this.playerPlayedCards[this.playerPlayedCards.length - 1].power;
 				}
+				if(this.playerPlayedCards[this.playerPlayedCards.length - 1].name == 'abundance'){
+					this.playerModifications.cosplay = this.playerModifications.abundance;
+					this.playerModifications.girlfriends = this.playerModifications.abundance;
+				}
+				if(this.playerPlayedCards[this.playerPlayedCards.length - 1].name == 'groupUse'){
+					this.playerModifications.cosplay = this.playerModifications.groupUse * 2;
+					this.playerModifications.girlfriends = this.playerModifications.groupUse * 2;
+				}
 			}
-			this.playerModifications.groupUse += this.playerPlayedCards.length;
 			if (this.playerModifications.bubbleButts > 0) {
 				this.enemyPower -= this.enemyPlayedCards.length * 2
 				this.playerModifications.bubbleButts -= 1;
@@ -725,8 +733,7 @@ export default {
 		checkPlayerCardEffects(cardArray) {
 			if (cardArray.includes("abundance")) {
 				this.playerPower += this.playerModifications.abundance;
-				this.playerModifications.cosplay = this.playerModifications.abundance;
-				this.playerModifications.girlfriends = this.playerModifications.abundance;
+
 			}
 			if (cardArray.includes("bimbofication")) {
 				this.playerModifications.bimbofiction += 1
@@ -780,8 +787,6 @@ export default {
 			}
 			if (cardArray.includes("groupUse")) {
 				this.playerPower += (this.playerModifications.groupUse * 2)
-				this.playerModifications.cosplay = this.playerModifications.groupUse * 2;
-				this.playerModifications.girlfriends = this.playerModifications.groupUse * 2;
 			}
 			if (cardArray.includes("ready")) {
 				this.playerModifications.ready += 1
