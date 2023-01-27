@@ -7,7 +7,7 @@
         </v-row>
         <v-row class="justify-space-around">
             <v-col cols="3">
-                <v-img v-if="step < 2" :src="playerImage" height='50%' contain></v-img>
+                <v-img v-if="step < 2" :src="playerImage" height='75%' contain></v-img>
             </v-col>
             <v-col cols="6"> 
                 <v-row class="'justify-center'">
@@ -82,7 +82,7 @@
                 </v-row>           
             </v-col>
             <v-col cols="3">
-                <v-img v-if="step < 2" :src="enemyImage" height='50%' contain></v-img>
+                <v-img v-if="step < 2" :src="enemyImage" height='75%' contain></v-img>
             </v-col>
         </v-row>
     </v-container>

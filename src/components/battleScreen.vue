@@ -1005,7 +1005,7 @@ export default {
 			}
 		},
 		ascendStage() {
-			if (this.$store.state.enemyType == "enemy" || this.$store.state.enemyType == "eliteEnemy") {
+			if (this.$store.state.enemyType == "enemy" || this.$store.state.enemyType == "eliteEnemy" || (this.$store.state.floor == 5 && this.$store.state.enemyType == "boss")) {
 				this.$emit('completeBattle');
 			} else if (this.$store.state.enemyType == "boss") {
 				this.$emit('completeBossBattle');

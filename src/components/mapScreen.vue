@@ -82,7 +82,7 @@ export default {
 				payload.cardPool = this.$store.state.cards
 			} else if (enemyType == 'boss') {
 				if (this.$store.state.floor == 5) {
-					payload.deckTemplate = this.$store.state.finalBossDecks[this.floor5BossesBeat].deck
+					payload.deckTemplate = this.$store.state.finalBossDecks[this.$store.state.stage - 1].deck
 					payload.cardPool = this.$store.state.cards
 				} else {
 					payload.deckTemplate = this.$store.state.bossDecks.find(deck => deck.floor == this.$store.state.floor).deck
@@ -119,6 +119,9 @@ export default {
 			this.activeComponent = null;
 			this.dialog = false;
             this.currentRowIndex++
+            if(this.$store.state.floor == 5){
+                this.$store.dispatch('ascendStage');
+            }
 		},
 		completeBossBattle() {
 			this.activeComponent = null;

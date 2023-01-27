@@ -38,7 +38,7 @@
                             </v-col>
                         </v-row>
                     </v-col>
-            <v-col cols="3" v-if="!(floor == 5 && !(step == 1 || step == 2 || step == 5))">
+            <v-col cols="3" v-if="(floor == 5 && (step == 0 || step == 1 || step == 2 || step == 5)) || floor != 5">
                 <v-img :src="playerImage" height='75%' contain></v-img>
             </v-col>
             <v-col cols="6" v-if="floor == 2"> 
@@ -112,7 +112,7 @@
                             And just what is it?
                         </div>
                         <div class="triangle-border right">
-                            I suppose I can give oytu a little hint. It involves me.
+                            I suppose I can give you a little hint. It involves me.
                         </div>
                     </v-col>
                     <v-col cols="12" class="text-center" v-if="step == 2">
@@ -148,38 +148,6 @@
                             You did, but there is just one challenge remaining. Me and my girls will remove the crowns we have been wearing, and will face you in our true form.
                         </div>
                     </v-col>
-                    <v-col cols="12" class="text-center" v-if="step == 3">
-                        <v-row class="'jsutify-space-around'">
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/001/001/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/002/001/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/003/001/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/004/001/001.png')"></v-img>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="12" class="text-center" v-if="step == 4">
-                        <v-row class="'jsutify-space-around'">
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/001/002/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/002/002/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/003/002/001.png')"></v-img>
-                            </v-col>
-                            <v-col cols="3" class="text-center">
-                                <v-img contain height="100%" :src="require('@/assets/bosses/004/002/001.png')"></v-img>
-                            </v-col>
-                        </v-row>
-                    </v-col>
                     <v-col cols="12" class="text-center" v-if="step == 5">
                         <div class="triangle-border left">
                             Wha...what are you?
@@ -196,7 +164,7 @@
                     </v-col>
                 </v-row>           
             </v-col>
-            <v-col cols="3" v-if="!(floor == 5 && !(step == 1 || step == 2 || step == 5))">
+            <v-col cols="3" v-if="(floor == 5 && (step == 0 || step == 1 || step == 2 || step == 5)) || floor != 5">
                 <v-img :src="enemyImage" height='75%' contain></v-img>
             </v-col>
         </v-row>
