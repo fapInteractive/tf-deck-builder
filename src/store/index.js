@@ -277,6 +277,7 @@ export default new Vuex.Store({
         {
             name: "flash",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -295,6 +296,7 @@ export default new Vuex.Store({
         {
             name: "moon",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -313,6 +315,7 @@ export default new Vuex.Store({
         {
             name: "commando",
             unlocked: true,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -331,6 +334,7 @@ export default new Vuex.Store({
         {
             name: "enticing",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -349,6 +353,7 @@ export default new Vuex.Store({
         {
             name: "girlfriends",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -367,6 +372,7 @@ export default new Vuex.Store({
         {
             name: "reflecting",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -385,6 +391,7 @@ export default new Vuex.Store({
         {
             name: "abundance",
             unlocked: true,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -403,6 +410,7 @@ export default new Vuex.Store({
         {
             name: "bubbleButts",
             unlocked: true,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -421,6 +429,7 @@ export default new Vuex.Store({
         {
             name: "ready",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -439,6 +448,7 @@ export default new Vuex.Store({
         {
             name: "seducing",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -457,6 +467,7 @@ export default new Vuex.Store({
         {
             name: "groupUse",
             unlocked: true,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -475,6 +486,7 @@ export default new Vuex.Store({
         {
             name: "zen",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -493,6 +505,7 @@ export default new Vuex.Store({
         {
             name: "blowjob",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -511,6 +524,7 @@ export default new Vuex.Store({
         {
             name: "girldick",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -529,6 +543,7 @@ export default new Vuex.Store({
         {
             name: "creampie",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -547,6 +562,7 @@ export default new Vuex.Store({
         {
             name: "cosplay",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -565,6 +581,7 @@ export default new Vuex.Store({
         {
             name: "freeUse",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -583,6 +600,7 @@ export default new Vuex.Store({
         {
             name: "restrained",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -601,6 +619,7 @@ export default new Vuex.Store({
         {
             name: "undressing",
             unlocked: true,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -619,6 +638,7 @@ export default new Vuex.Store({
         {
             name: "thong",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -637,6 +657,7 @@ export default new Vuex.Store({
         {
             name: "bimbofication",
             unlocked: true,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -655,6 +676,7 @@ export default new Vuex.Store({
         {
             name: "strapon",
             unlocked: true,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -673,6 +695,7 @@ export default new Vuex.Store({
         {
             name: "assWorship",
             unlocked: false,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -687,6 +710,7 @@ export default new Vuex.Store({
         {
             name: "cumCleanup",
             unlocked: false,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -701,6 +725,7 @@ export default new Vuex.Store({
         {
             name: "forcedBi",
             unlocked: false,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -715,6 +740,7 @@ export default new Vuex.Store({
         {
             name: "humanChair",
             unlocked: false,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -729,6 +755,7 @@ export default new Vuex.Store({
         {
             name: "pegging",
             unlocked: false,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -743,6 +770,7 @@ export default new Vuex.Store({
         {
             name: "suckTheStrap",
             unlocked: false,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "animated1", "rainbow1"],
@@ -757,6 +785,7 @@ export default new Vuex.Store({
         {
             name: "latexBoots",
             unlocked: false,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -770,6 +799,7 @@ export default new Vuex.Store({
         {
             name: "latexClothes",
             unlocked: false,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -783,6 +813,7 @@ export default new Vuex.Store({
         {
             name: "latexGloves",
             unlocked: false,
+            rarity: "Uncommon",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -796,6 +827,7 @@ export default new Vuex.Store({
         {
             name: "latexSet",
             unlocked: false,
+            rarity: "Rare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -809,6 +841,7 @@ export default new Vuex.Store({
         {
             name: "latexDoll",
             unlocked: false,
+            rarity: "SuperRare",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -822,6 +855,7 @@ export default new Vuex.Store({
         {
             name: "secondSkin",
             unlocked: false,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "rainbow1"],
@@ -837,6 +871,7 @@ export default new Vuex.Store({
         {
             name: "outfitOops",
             unlocked: true,
+            rarity: "Common",
             activeImage: 'static1',
             unlockedVarients: ["static1"],
             potentialVarients: ["static1", "static2", "static3", "rainbow1", "rainbow2", "rainbow3", "animated1"],
@@ -1351,8 +1386,6 @@ export default new Vuex.Store({
             }
         }),
         payload.constructedDeck = constructedDeck;
-        console.log('Player deck:')
-        console.log(payload.constructedDeck)
         context.commit('selectCharacter', payload)
     },
     buildEnemyDeck: function(context, payload){
@@ -1370,8 +1403,6 @@ export default new Vuex.Store({
             }
         }),
         payload.constructedDeck = constructedDeck;
-        console.log('Enemy deck:')
-        console.log(payload.constructedDeck)
         context.commit('buildEnemyDeck', payload)
     },
     ascendStage: function(context) {

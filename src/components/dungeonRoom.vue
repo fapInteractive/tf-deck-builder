@@ -320,7 +320,6 @@
         },
         checkExit(){
             if(this.keyObtained){
-                console.log('ascending stage');
                 window.removeEventListener('keydown', this.preventScrolling);
                 window.removeEventListener('keyup', this.handleArrows)
     			this.$store.dispatch('ascendFloor');
@@ -437,8 +436,6 @@
 		},
         checkCellAfterMove(){
             let activeCellType = this.activeDungeon[this.activeRow][this.activeCell];
-            console.log(this.activeRow + ', ' + this.activeCell);
-            console.log(activeCellType)
 			switch (activeCellType) {
 				case 1:
 					return;
@@ -688,7 +685,6 @@
 			this.$store.state.playerPerks.forEach(perk => {
 				availablePerks.find(obj => obj.name == perk.name).count += 1
 			})
-			console.log(availablePerks.filter(perk => perk.count > 0))
 			return availablePerks.filter(perk => perk.count > 0);
 		}
 	},
@@ -818,7 +814,6 @@
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		]
-		console.log(this.miniMap)
 		this.updateMiniMap();
 		window.addEventListener('keydown', this.preventScrolling);
         window.addEventListener('keyup', this.handleArrows)

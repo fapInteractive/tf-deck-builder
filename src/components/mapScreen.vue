@@ -192,7 +192,6 @@ export default {
                     pickedEncounter = encounters.find((encounter) => encounter.probability === '*');
                 }
             }
-            console.log(pickedEncounter)
 
             return pickedEncounter;
         },
@@ -219,11 +218,16 @@ export default {
                         {
                             type: "enemy",
                             img: require("@/assets/icons/doorIcons/enemy.png"),
-                            probability: 0.7
+                            probability: 0.5
                         },
                         {
                             type: "merchant",
                             img: require("@/assets/icons/doorIcons/merchant.png"),
+                            probability: 0.2
+                        },
+                        {
+                            type: "chestRoom",
+                            img: require("@/assets/icons/doorIcons/chest.png"),
                             probability: 0.2
                         },
                         {
@@ -238,11 +242,16 @@ export default {
                         {
                             type: "enemy",
                             img: require("@/assets/icons/doorIcons/enemy.png"),
-                            probability: 0.5
+                            probability: 0.4
                         },
                         {
                             type: "merchant",
                             img: require("@/assets/icons/doorIcons/merchant.png"),
+                            probability: 0.1
+                        },
+                        {
+                            type: "chestRoom",
+                            img: require("@/assets/icons/doorIcons/chest.png"),
                             probability: 0.1
                         },
                         {
@@ -270,6 +279,11 @@ export default {
                             probability: 0.1
                         },
                         {
+                            type: "chestRoom",
+                            img: require("@/assets/icons/doorIcons/chest.png"),
+                            probability: 0.1
+                        },
+                        {
                             type: "eliteEnemy",
                             img: require("@/assets/icons/doorIcons/eliteEnemy.png"),
                             probability: "*"
@@ -277,7 +291,7 @@ export default {
                         {
                             type: "restSite",
                             img: require("@/assets/icons/doorIcons/restSite.png"),
-                            probability: 0.2
+                            probability: 0.1
                         }
                     ]
                 }
@@ -420,7 +434,6 @@ export default {
 			this.$store.state.playerPerks.forEach(perk => {
 				availablePerks.find(obj => obj.name == perk.name).count += 1
 			})
-			console.log(availablePerks.filter(perk => perk.count > 0))
 			return availablePerks.filter(perk => perk.count > 0);
 		}
 	}

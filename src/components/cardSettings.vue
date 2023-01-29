@@ -44,13 +44,11 @@
         methods: {
             changeVarient(card){
                 let name = card.name;
-                console.log(card.unlockedVarients)
                 let newImageIndex = card.unlockedVarients.findIndex(varient => varient == card.activeImage) + 1;
                 if(newImageIndex == card.unlockedVarients.length){
                     newImageIndex = 0;
                 }
                 let varient = card.unlockedVarients[newImageIndex]
-                console.log(varient)
                 let payload = {
                     name: name,
                     varient: varient

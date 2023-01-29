@@ -79,7 +79,6 @@
             if(this.$store.state.stage < 3 && this.$store.state.floor == 1){
               availableOptions = availableOptions.filter(option => option.doorName != 'chestDoor')
             }
-            console.log(availableOptions)
             this.doors.push(availableOptions[Math.floor(Math.random()*availableOptions.length)])
           }
         } else {

@@ -84,8 +84,6 @@
     }),
     methods: {
       changeComponent: function(newcomponent) {
-        console.log('Change component hit')
-        console.log(newcomponent)
         this.activeComponent = newcomponent
       }
     },
@@ -141,7 +139,6 @@
         this.$store.state.playerPerks.forEach(perk => {
           availablePerks.find(obj => obj.name == perk.name).count += 1
         })
-        console.log(availablePerks.filter(perk => perk.count > 0))
         return availablePerks.filter(perk => perk.count > 0);
       }
     }

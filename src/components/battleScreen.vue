@@ -1069,7 +1069,39 @@ export default {
 			return returnArr.reverse()
 		},
 		prizeCards() {
-			var prizeCards = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).sort(() => .5 - Math.random()).slice(0, 3)))
+			let rarities = [
+				{
+					rarity: "Common",
+					probability: 60
+				},
+				{
+					rarity: "Uncommon",
+					probability: 30
+				},
+				{
+					rarity: "Rare",
+					probability: 9
+				},
+				{
+					rarity: "SuperRare",
+					probability: 1
+				},
+			]
+			var prizeCards = new Array
+			for (let i = 0; i < 3; i++) {
+				let randomRarity = Math.floor(Math.random() * 100) + 1;
+				let prizeCard = null
+				if(randomRarity == 1){
+					prizeCard = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).filter(card => card.rarity == "SuperRare").sort(() => .5 - Math.random()).slice(0, 1)))
+				} else if(randomRarity > 1 && randomRarity < 11){
+					prizeCard = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).filter(card => card.rarity == "Rare").sort(() => .5 - Math.random()).slice(0, 1)))
+				} else if (randomRarity > 10 && randomRarity < 41){
+					prizeCard = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).filter(card => card.rarity == "Uncommon").sort(() => .5 - Math.random()).slice(0, 1)))
+				} else {
+					prizeCard = JSON.parse(JSON.stringify(this.$store.state.cards.filter(card => card.unlocked == true).filter(card => card.rarity == "Common").sort(() => .5 - Math.random()).slice(0, 1)))
+				}
+				prizeCards.push(prizeCard[0])
+			}
 			prizeCards.forEach(card => {
 				card.id = ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 			});

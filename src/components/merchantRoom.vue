@@ -81,17 +81,13 @@
       }),
       methods: {
         buyCard(card){
-            console.log('Card buy entered')
             if(this.coins >= card.value){
-                console.log('Card purchased')
                 this.$store.dispatch('buyCard', card)
                 this.purchasedCards.push(card.id)
             }  
         },
         buyPerk(perk){
-            console.log('Perk buy entered')
             if(this.coins >= perk.value){
-                console.log('Perk purchased')
                 this.$store.dispatch('buyPerk', perk)
                 this.purchasedPerks.push(perk.name)
             }  

@@ -115,7 +115,6 @@
                     this.enemyImage = require('@/assets/bosses/004/dialogue/004.png')
                 }
                 if(this.step == 6){
-                    console.log('changing component')
                     this.$emit('changeComponent', 'mapScreen')
                 }
                 if(this.step < 6){

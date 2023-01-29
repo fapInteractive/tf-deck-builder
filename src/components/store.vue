@@ -116,9 +116,7 @@
           if(lockedCards.length >= 3){
             while (this.purchasedCards.length < 3) {
               let purchasedCard = new Object
-              console.log("purchasing card")
               let card = lockedCards[Math.floor(Math.random()*lockedCards.length)];
-              console.log(this.purchasedCards.map(card => card.name))
               if(!this.purchasedCards.map(card => card.name).includes(card.name)){
                 purchasedCard.image = card[card.activeImage];
                 purchasedCard.name = card.name;

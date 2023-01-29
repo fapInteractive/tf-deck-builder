@@ -389,7 +389,6 @@ var fs = require('fs')
 
 fs.writeFile('D:/source/personalProjects/vue/games/tf-deck-builder/src/assets/createBackground.bat', '', function (err) {
     if (err) throw err;
-    console.log('It\'s saved!');
   });
 
 //   fs.appendFileSync("D:/source/personalProjects/vue/games/tf-deck-builder/src/assets/createBackground.bat", `convert -rotate ${randomAngle()} -background transparent cards/static/${cards[0].name}.png b.png` + "\r\n");
